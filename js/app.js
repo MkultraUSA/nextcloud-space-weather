@@ -93,12 +93,17 @@ var SW = {
             return;
         }
         var d = data.data || data;
-        var flux = d.long !== undefined ? d.long.toExponential(1) : '--';
+        var flareClass = d['class'] || '--';
+        var intensity = d.intensity !== undefined ? d.intensity.toExponential(1) : null;
         var alert = d.alert_level || 'normal';
 
         var card = SW.el('div', 'metric-card xray-' + alert);
         var title = SW.el('div', 'metric-label', 'X-Ray Flux');
-        var value = SW.el('div', 'metric-value', flux + ' W/m²');
+        var value = SW.el('div', 'metric-value', flareClass);
+        if (intensity) {
+            var sub = SW.el('div', 'metric-sub', intensity + ' W/m²');
+            card.appendChild(sub);
+        }
         var stat = SW.el('div', 'metric-status', alert.replace(/_/g, ' '));
         var time = SW.el('div', 'metric-time', 'Updated: ' + SW.fmtTime(d.timestamp));
 
@@ -220,9 +225,7 @@ var SW = {
         }
 
         var maps = [
-            { title: 'Current', key: 'drap_global' },
-            { title: '12-Hour Forecast', key: 'drap_global' },  // same image, different conceptual view
-            { title: '24-Hour Forecast', key: 'drap_global' },
+            { title: 'Global D-RAP', key: 'drap_global' },
         ];
 
         maps.forEach(function (m) {
@@ -251,9 +254,9 @@ var SW = {
             return;
         }
 
-        var sdoKeys = ['sdo_193', 'sdo_304', 'sdo_171', 'sdo_magnetogram'];
-        var names   = ['AIA 193Å (Corona)', 'AIA 304Å (Chromosphere)', 'AIA 171Å (Transition)', 'HMI Magnetogram'];
-        var descs   = ['Hot corona — 1.2 MK plasma', 'Upper chromosphere — 50,000 K', 'Quiet corona — 600,000 K', 'Magnetic field — Photosphere'];
+        var sdoKeys = ['sdo_193', 'sdo_304', 'sdo_171', 'sdo_211', 'sdo_magnetogram'];
+        var names   = ['AIA 193Å (Corona)', 'AIA 304Å (Chromosphere)', 'AIA 171Å (Quiet Corona)', 'AIA 211Å (Active Regions)', 'HMI Magnetogram'];
+        var descs   = ['Hot corona — 1.2 MK', 'Upper chromosphere — 50,000 K', 'Quiet corona — 600,000 K', 'Active regions — 2 MK', 'Magnetic field — photosphere'];
 
         for (var i = 0; i < sdoKeys.length; i++) {
             var card = SW.el('div', 'wavelength-card');

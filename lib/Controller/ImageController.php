@@ -21,21 +21,25 @@ use Psr\Log\LoggerInterface;
 
 class ImageController extends Controller {
 
-	/** URL map: key => external image URL */
+	/** URL map: proxy key => live external image URL */
 	private const IMAGE_URLS = [
-		// Aurora
+		// Aurora (NOAA SWPC) — verified 2026-05-22
 		'aurora_north' => 'https://services.swpc.noaa.gov/images/animations/ovation/north/latest.jpg',
 		'aurora_south' => 'https://services.swpc.noaa.gov/images/animations/ovation/south/latest.jpg',
-		// D-RAP
-		'drap_global'   => 'https://services.swpc.noaa.gov/images/animations/d-rap/global/latest.png',
-		// SDO solar imagery
+
+		// D-RAP (NOAA SWPC) — verified 2026-05-22
+		'drap_global'  => 'https://services.swpc.noaa.gov/images/animations/d-rap/global/latest.png',
+
+		// SDO solar imagery (NASA) — current filename format verified 2026-05-22
 		'sdo_193'        => 'https://sdo.gsfc.nasa.gov/assets/img/latest/f_094_335_193_512.jpg',
 		'sdo_304'        => 'https://sdo.gsfc.nasa.gov/assets/img/latest/f_304_211_171_512.jpg',
-		'sdo_171'        => 'https://sdo.gsfc.nasa.gov/assets/img/latest/f_304_211_171_512.jpg',
+		'sdo_171'        => 'https://sdo.gsfc.nasa.gov/assets/img/latest/f_211_193_171_512.jpg',
+		'sdo_211'        => 'https://sdo.gsfc.nasa.gov/assets/img/latest/f_211_193_171_512.jpg',
 		'sdo_magnetogram' => 'https://sdo.gsfc.nasa.gov/assets/img/latest/f_HMImag_171_512.jpg',
-		// GOES satellite
-		'goes16_fd'  => 'https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/625x375.jpg',
-		'goes18_fd'  => 'https://cdn.star.nesdis.noaa.gov/GOES18/ABI/FD/GEOCOLOR/625x375.jpg',
+
+		// GOES satellites (NOAA) — verified 2026-05-22
+		'goes16_fd' => 'https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/678x678.jpg',
+		'goes18_fd' => 'https://cdn.star.nesdis.noaa.gov/GOES18/ABI/FD/GEOCOLOR/678x678.jpg',
 	];
 
 	public function __construct(
@@ -62,8 +66,8 @@ class ImageController extends Controller {
 			$url = self::IMAGE_URLS[$key];
 			$body = $this->fetchImage($url);
 
-			if ($body === false) {
-				return new DataResponse(['error' => 'Failed to fetch image'], 502);
+			if ($body === false || $body === '') {
+				return new DataResponse(['error' => 'Failed to fetch image from source'], 502);
 			}
 
 			$contentType = $this->detectMimeType($body);
@@ -90,6 +94,8 @@ class ImageController extends Controller {
 			'http' => [
 				'timeout'    => 15,
 				'user_agent' => 'Nextcloud-SpaceWeather/1.0',
+				'follow_location' => 1,
+				'max_redirects'   => 3,
 			],
 			'ssl' => [
 				'verify_peer'      => false,
@@ -97,18 +103,24 @@ class ImageController extends Controller {
 			],
 		];
 		$context = stream_context_create($opts);
-		return file_get_contents($url, false, $context);
+		return @file_get_contents($url, false, $context);
 	}
 
 	/**
 	 * Detect MIME type from magic bytes in the image data.
 	 */
 	private function detectMimeType(string $body): string {
+		// PNG magic: 89 50 4E 47
 		if (str_starts_with($body, "\x89PNG")) {
 			return 'image/png';
 		}
+		// JPEG magic: FF D8 FF
 		if (str_starts_with($body, "\xFF\xD8\xFF")) {
 			return 'image/jpeg';
+		}
+		// GIF magic: GIF89a or GIF87a
+		if (str_starts_with($body, 'GIF8')) {
+			return 'image/gif';
 		}
 		// Fallback
 		return 'image/jpeg';

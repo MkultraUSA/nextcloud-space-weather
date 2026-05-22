@@ -649,6 +649,13 @@ body {
     font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
 }
 
+.metric-sub {
+    font-size: 13px;
+    color: var(--color-text-tertiary);
+    margin-bottom: calc(var(--spacing-unit) * 0.5);
+    font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+}
+
 .metric-status {
     font-size: 14px;
     font-weight: 600;
