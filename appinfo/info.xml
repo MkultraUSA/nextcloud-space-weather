@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<info>
+	<id>space_weather</id>
+	<name>Space Weather Dashboard</name>
+	<summary>Real-time space weather monitoring with NOAA/NASA data</summary>
+	<description>
+		Comprehensive dashboard for monitoring space weather conditions including:
+		- Real-time KP index and geomagnetic storms
+		- Solar flux (F10.7) measurements and charts
+		- X-ray flux monitoring with alert levels
+		- Aurora forecast predictions
+		- HF band propagation conditions
+		- D-RAP absorption maps
+		- SDO solar imagery
+		- Weather satellite image gallery
+		
+		Data sources:
+		- NOAA Space Weather Prediction Center (SWPC)
+		- NASA APIs (Earth Imagery, Solar Dynamics Observatory)
+		- HamQSL propagation data
+	</description>
+	<version>1.0.0</version>
+	<licence>AGPL-3.0-or-later</licence>
+	<author>Nextcloud Space Weather Project</author>
+	<author mail="admin@example.com">Admin</author>
+	<namespace>OCA\SpaceWeather</namespace>
+	<types>
+		<assignment/>
+	</types>
+	<category>tools</category>
+	<website>https://github.com/nextcloud/space-weather</website>
+	<bugs>https://github.com/nextcloud/space-weather/issues</bugs>
+	<repository>https://github.com/nextcloud/space-weather.git</repository>
+	<documentation>
+		<user>https://github.com/nextcloud/space-weather/blob/main/README.md</user>
+		<developer>https://github.com/nextcloud/space-weather/blob/main/DEVELOPMENT.md</developer>
+	</documentation>
+
+	<dependencies>
+		<nextcloud min-version="27" max-version="29"/>
+		<php min-version="8.0"/>
+	</dependencies>
+
+	<navigations>
+		<navigation>
+			<name>Space Weather</name>
+			<route>space_weather.page.index</route>
+			<icon>icon.svg</icon>
+			<order>80</order>
+		</navigation>
+	</navigations>
+
+	<settings>
+		<personal>OCA\SpaceWeather\Settings\Personal</personal>
+		<admin>OCA\SpaceWeather\Settings\Admin</admin>
+	</settings>
+</info>

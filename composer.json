@@ -1,0 +1,48 @@
+{
+	"name": "space-weather",
+	"description": "Space Weather Dashboard - Real-time monitoring with NOAA/NASA data",
+	"version": "1.0.0",
+	"license": "AGPL-3.0-or-later",
+	"authors": [
+		{
+			"name": "Nextcloud Space Weather Project",
+			"email": "admin@example.com"
+		}
+	],
+	"keywords": [
+		"nextcloud",
+		"space-weather",
+		"noaa",
+		"nasa",
+		"aurora",
+		"geomagnetic",
+		"solar-activity"
+	],
+	"repositories": [
+		{
+			"type": "git",
+			"url": "https://github.com/nextcloud/space-weather.git"
+		}
+	],
+	"require": {
+		"php": "^8.0",
+		"nextcloud/ocp": "^27.0 || ^28.0 || ^29.0",
+		"guzzlehttp/guzzle": "^7.0"
+	},
+	"require-dev": {
+		"nextcloud/coding-standard": "^1.1",
+		"phpunit/phpunit": "^9.5 || ^10.0",
+		"psalm/phar": "^5.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"OCA\\SpaceWeather\\": "lib/"
+		}
+	},
+	"config": {
+		"sort-packages": true,
+		"allow-plugins": {
+			"composer/installers": true
+		}
+	}
+}
