@@ -47,7 +47,7 @@
 		<navigation>
 			<name>Space Weather</name>
 			<route>space_weather.page.index</route>
-			<icon>icon.svg</icon>
+			<icon>app.svg</icon>
 			<order>80</order>
 		</navigation>
 	</navigations>
