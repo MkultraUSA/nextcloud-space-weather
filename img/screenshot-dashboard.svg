@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <defs>
+    <radialGradient id="sunGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#FFD700"/>
+      <stop offset="100%" style="stop-color:#FF4500"/>
+    </radialGradient>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#0f3460"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="720" fill="url(#bgGrad)"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="1280" height="80" fill="rgba(102,126,234,0.15)"/>
+  <text x="40" y="52" font-size="28" font-weight="700" fill="#ffffff" font-family="sans-serif">Space Weather Dashboard</text>
+  <text x="40" y="72" font-size="12" fill="rgba(255,255,255,0.5)" font-family="sans-serif">Real-time NOAA/NASA space weather monitoring</text>
+
+  <!-- KP Card -->
+  <rect x="40" y="110" width="370" height="180" rx="12" fill="rgba(255,255,255,0.08)"/>
+  <text x="225" y="145" font-size="12" fill="rgba(255,255,255,0.5)" font-family="sans-serif" text-anchor="middle">KP INDEX</text>
+  <text x="225" y="210" font-size="56" font-weight="700" fill="#FFD700" font-family="monospace" text-anchor="middle">3.7</text>
+  <rect x="170" y="235" width="110" height="24" rx="12" fill="rgba(255,152,0,0.2)"/>
+  <text x="225" y="252" font-size="12" font-weight="600" fill="#FF9800" font-family="sans-serif" text-anchor="middle">active</text>
+
+  <!-- X-Ray Card -->
+  <rect x="455" y="110" width="370" height="180" rx="12" fill="rgba(255,255,255,0.08)"/>
+  <text x="640" y="145" font-size="12" fill="rgba(255,255,255,0.5)" font-family="sans-serif" text-anchor="middle">X-RAY FLUX</text>
+  <text x="640" y="210" font-size="28" font-weight="700" fill="#4caf50" font-family="monospace" text-anchor="middle">1.2e-6 W/m²</text>
+  <rect x="585" y="235" width="110" height="24" rx="12" fill="rgba(76,175,80,0.2)"/>
+  <text x="640" y="252" font-size="12" font-weight="600" fill="#4caf50" font-family="sans-serif" text-anchor="middle">normal</text>
+
+  <!-- Flux Card -->
+  <rect x="870" y="110" width="370" height="180" rx="12" fill="rgba(255,255,255,0.08)"/>
+  <text x="1055" y="145" font-size="12" fill="rgba(255,255,255,0.5)" font-family="sans-serif" text-anchor="middle">SOLAR FLUX (F10.7)</text>
+  <text x="1055" y="210" font-size="48" font-weight="700" fill="#ffffff" font-family="monospace" text-anchor="middle">142 sfu</text>
+  <rect x="1000" y="235" width="110" height="24" rx="12" fill="rgba(255,255,255,0.15)"/>
+  <text x="1055" y="252" font-size="12" font-weight="600" fill="#ffffff" font-family="sans-serif" text-anchor="middle">moderate</text>
+
+  <!-- Aurora Section -->
+  <text x="40" y="340" font-size="18" font-weight="600" fill="rgba(255,255,255,0.7)" font-family="sans-serif">Aurora Forecast</text>
+  <rect x="40" y="360" width="1200" height="150" rx="12" fill="rgba(255,255,255,0.05)" stroke="rgba(102,126,234,0.3)" stroke-width="1"/>
+  <circle cx="640" cy="435" r="50" fill="none" stroke="#00FF88" stroke-width="2" stroke-dasharray="8,4" opacity="0.5"/>
+  <text x="640" y="440" font-size="20" fill="rgba(255,255,255,0.3)" font-family="sans-serif" text-anchor="middle">Aurora Forecast Image</text>
+
+  <!-- Band Conditions -->
+  <text x="40" y="555" font-size="18" font-weight="600" fill="rgba(255,255,255,0.7)" font-family="sans-serif">HF Band Propagation</text>
+  <rect x="40" y="575" width="1200" height="100" rx="12" fill="rgba(255,255,255,0.05)" stroke="rgba(102,126,234,0.3)" stroke-width="1"/>
+
+  <!-- Table header -->
+  <rect x="60" y="595" width="1160" height="30" rx="6" fill="rgba(102,126,234,0.2)"/>
+  <text x="100" y="615" font-size="11" fill="#ffffff" font-family="sans-serif" font-weight="600">Band</text>
+  <text x="350" y="615" font-size="11" fill="#ffffff" font-family="sans-serif" font-weight="600">Condition</text>
+  <text x="700" y="615" font-size="11" fill="#ffffff" font-family="sans-serif" font-weight="600">Efficiency</text>
+  <text x="1000" y="615" font-size="11" fill="#ffffff" font-family="sans-serif" font-weight="600">MUF</text>
+
+  <!-- Row -->
+  <text x="100" y="645" font-size="11" fill="#667eea" font-family="monospace">20m</text>
+  <text x="350" y="645" font-size="11" fill="#4caf50" font-family="sans-serif">Good</text>
+  <rect x="650" y="634" width="200" height="14" rx="4" fill="rgba(102,126,234,0.3)"/>
+  <rect x="650" y="634" width="160" height="14" rx="4" fill="rgba(102,126,234,0.5)"/>
+  <text x="1000" y="645" font-size="11" fill="rgba(255,255,255,0.7)" font-family="monospace">28.5 MHz</text>
+
+  <!-- Footer -->
+  <text x="640" y="700" font-size="11" fill="rgba(255,255,255,0.25)" font-family="sans-serif" text-anchor="middle">Screenshot — Space Weather Dashboard v1.0.0</text>
+</svg>

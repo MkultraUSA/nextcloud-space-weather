@@ -28,39 +28,48 @@ A comprehensive real-time space weather monitoring dashboard for Nextcloud, prov
 
 ## System Requirements
 
-- **Nextcloud**: 27.0 or higher
-- **PHP**: 8.0 or higher
+- **Nextcloud**: 27.0 or higher (tested through 35.0)
+- **PHP**: 8.0 — 8.4
 - **Browser**: Modern browser with ES2020+ support
-- **Network**: Internet connectivity for API calls
+- **Network**: Internet connectivity for external API calls (NOAA, NASA, HamQSL)
 
 ## Installation
 
-### Prerequisites
+### 1. Install Dependencies
 ```bash
-# Install PHP dependencies
-composer install
-
-# Install Node.js dependencies
-npm install
+cd /path/to/nextcloud/apps/space_weather
+composer install --no-dev
 ```
 
-### Build Assets
+### 2. Enable the App
 ```bash
-# Build Vue.js components
-npm run build
-
-# For development with hot reload
-npm run dev
+sudo -u www-data php occ app:enable space_weather
 ```
 
-### Deploy to Nextcloud
-```bash
-# Copy app directory to Nextcloud apps
-cp -r /tmp/nextcloud-space-weather /path/to/nextcloud/apps/space_weather
-
-# Enable the app
-php /path/to/nextcloud/occ app:enable space_weather
+### 3. Access the Dashboard
+Navigate to your Nextcloud instance and click "Space Weather" in the sidebar, or visit:
 ```
+https://your-nextcloud.example.com/apps/space_weather/
+```
+
+**No build step required** — all JavaScript is vanilla ES5/ES2020+ and CSP-compliant.
+
+## Architecture
+
+### Backend (PHP)
+- **Controllers**: APIController (8 REST endpoints), PageController (dashboard rendering), ImageController (CSP-safe image proxy)
+- **Services**: SpaceWeatherService (NOAA KP/flux/X-ray/aurora), WeatherSatelliteService (HamQSL bands, D-RAP, SDO, satellites), CacheService (TTL-based caching)
+- **Framework**: Nextcloud AppFramework with IBootstrap, dependency injection, PSR-4 autoloading
+
+### Frontend (Vanilla JS)
+- Single `js/app.js` — no build step, no framework dependencies
+- All DOM manipulation via `createElement` / `textContent` (CSP-compliant)
+- All event binding via `addEventListener` (no inline handlers)
+- Parallel API fetching with `Promise.all`
+- Responsive CSS with dark mode, print styles, and reduced-motion support
+
+### Image Proxy
+External NOAA/NASA images are fetched server-side and served through same-origin endpoints (`/api/v1/image/{key}`) to comply with Nextcloud's Content Security Policy.
 
 ## API Documentation
 

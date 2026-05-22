@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (c) 2024 Nextcloud GmbH
+ * @copyright Copyright (c) 2024 Kevin Watkins
  * @license AGPL-3.0-or-later
  */
 

@@ -1,163 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Space Weather Dashboard</title>
-	<link rel="stylesheet" href="<?php print_unescaped(\OCP\Template::quote_attr(\OCP\Util::linkTo('space_weather', 'css/style.css'))); ?>">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Weather Dashboard</title>
 </head>
 <body>
-	<div id="app" class="space-weather-app">
-		<div class="app-header">
-			<h1>Space Weather Dashboard</h1>
-			<div class="header-controls">
-				<button id="refresh-btn" class="refresh-button" title="Refresh all data">
-					<span class="refresh-icon">⟲</span>
-					<span class="refresh-text">Refresh</span>
-				</button>
-				<div class="loading-spinner" id="loading-spinner" style="display: none;">
-					<span class="spinner"></span>
-				</div>
-				<div class="last-update" id="last-update">
-					Updated: <time>--:--</time>
-				</div>
-			</div>
-		</div>
+<div id="app" class="space-weather-app">
 
-		<div class="dashboard-container">
-			<!-- Real-time KP Index Section -->
-			<div class="dashboard-section">
-				<h2>Geomagnetic Activity</h2>
-				<div class="cards-grid">
-					<space-weather-card 
-						card-title="KP Index" 
-						:data="kpIndex" 
-						data-type="kp"
-						loading="kpLoading"
-					></space-weather-card>
+    <div class="app-header">
+        <h1>Space Weather Dashboard</h1>
+        <div class="header-controls">
+            <button id="refresh-btn" class="refresh-button" title="Refresh all data">
+                <span class="refresh-icon">⟳</span>
+                <span class="refresh-text">Refresh</span>
+            </button>
+            <div class="loading-spinner" id="loading-spinner" style="display:none">
+                <span class="spinner"></span>
+            </div>
+            <div class="last-update">
+                Updated: <time id="last-update-time">--:--</time>
+            </div>
+        </div>
+    </div>
 
-					<space-weather-card 
-						card-title="X-Ray Flux" 
-						:data="xrayFlux" 
-						data-type="xray"
-						loading="xrayLoading"
-					></space-weather-card>
+    <div class="dashboard-container">
 
-					<space-weather-card 
-						card-title="Solar Flux (F10.7)" 
-						:data="solarFlux" 
-						data-type="flux"
-						loading="fluxLoading"
-					></space-weather-card>
-				</div>
-			</div>
+        <!-- Real-time Monitoring Cards -->
+        <div class="dashboard-section">
+            <h2>Geomagnetic Activity</h2>
+            <div class="cards-grid">
+                <div id="kp-card"></div>
+                <div id="xray-card"></div>
+                <div id="flux-card"></div>
+            </div>
+        </div>
 
-			<!-- Aurora Forecast Section -->
-			<div class="dashboard-section">
-				<h2>Aurora Forecast</h2>
-				<div class="forecast-container">
-					<img 
-						v-if="auroraForecast && auroraForecast.image_url" 
-						:src="auroraForecast.image_url" 
-						alt="Aurora Forecast"
-						class="forecast-image"
-					>
-					<div v-else class="forecast-placeholder">
-						<p>Loading aurora forecast...</p>
-					</div>
-				</div>
-			</div>
+        <!-- Aurora Forecast -->
+        <div class="dashboard-section">
+            <h2>Aurora Forecast</h2>
+            <div id="aurora-forecast" class="forecast-container"></div>
+        </div>
 
-			<!-- HF Band Conditions Section -->
-			<div class="dashboard-section">
-				<h2>HF Band Propagation</h2>
-				<band-conditions 
-					:data="bandConditions" 
-					loading="bandConditionsLoading"
-				></band-conditions>
-			</div>
+        <!-- HF Band Conditions -->
+        <div class="dashboard-section">
+            <h2>HF Band Propagation</h2>
+            <div id="band-conditions"></div>
+        </div>
 
-			<!-- D-RAP Absorption Maps Section -->
-			<div class="dashboard-section">
-				<h2>D-RAP Absorption Maps</h2>
-				<div class="drap-maps-container">
-					<div v-if="drapAbsorption" class="drap-map-grid">
-						<div class="drap-map-item">
-							<h3>Current</h3>
-							<img 
-								:src="drapAbsorption.current_map" 
-								alt="Current D-RAP Map"
-								class="drap-map"
-								onerror="this.style.display='none'"
-							>
-						</div>
-						<div class="drap-map-item">
-							<h3>12-Hour Forecast</h3>
-							<img 
-								:src="drapAbsorption.forecast_12h" 
-								alt="12H D-RAP Forecast"
-								class="drap-map"
-								onerror="this.style.display='none'"
-							>
-						</div>
-						<div class="drap-map-item">
-							<h3>24-Hour Forecast</h3>
-							<img 
-								:src="drapAbsorption.forecast_24h" 
-								alt="24H D-RAP Forecast"
-								class="drap-map"
-								onerror="this.style.display='none'"
-							>
-						</div>
-					</div>
-					<div v-else class="placeholder">
-						<p>Loading D-RAP maps...</p>
-					</div>
-				</div>
-			</div>
+        <!-- D-RAP Absorption Maps -->
+        <div class="dashboard-section">
+            <h2>D-RAP Absorption Maps</h2>
+            <div id="drap-maps" class="drap-maps-container"></div>
+        </div>
 
-			<!-- SDO Solar Imagery Section -->
-			<div class="dashboard-section">
-				<h2>Solar Dynamics Observatory (SDO)</h2>
-				<div class="sdo-gallery">
-					<div v-if="sdoImagery && sdoImagery.wavelengths" class="wavelength-grid">
-						<div v-for="wavelength in sdoImagery.wavelengths" :key="wavelength.name" class="wavelength-card">
-							<h3>{{ wavelength.name }}</h3>
-							<p class="wavelength-desc">{{ wavelength.description }}</p>
-							<img 
-								:src="wavelength.url" 
-								:alt="wavelength.name"
-								class="wavelength-image"
-								onerror="this.alt='Image unavailable'"
-							>
-						</div>
-					</div>
-					<div v-else class="placeholder">
-						<p>Loading SDO imagery...</p>
-					</div>
-				</div>
-			</div>
+        <!-- SDO Solar Imagery -->
+        <div class="dashboard-section">
+            <h2>Solar Dynamics Observatory (SDO)</h2>
+            <div id="sdo-gallery" class="sdo-gallery"></div>
+        </div>
 
-			<!-- Weather Satellite Gallery Section -->
-			<div class="dashboard-section">
-				<h2>Weather Satellite Imagery</h2>
-				<satellite-gallery 
-					:data="satelliteImages" 
-					loading="satelliteImagesLoading"
-				></satellite-gallery>
-			</div>
+        <!-- Weather Satellite Gallery -->
+        <div class="dashboard-section">
+            <h2>Weather Satellite Imagery</h2>
+            <div id="satellite-gallery" class="satellite-gallery"></div>
+        </div>
 
-			<!-- Error Messages -->
-			<div v-if="errors.length > 0" class="errors-container">
-				<div v-for="(error, index) in errors" :key="index" class="error-message">
-					<span class="error-icon">⚠</span>
-					<span class="error-text">{{ error }}</span>
-					<button class="error-close" @click="errors.splice(index, 1)">✕</button>
-				</div>
-			</div>
-		</div>
-	</div>
+        <!-- Error Messages -->
+        <div id="errors-container" class="errors-container"></div>
 
-	<script src="<?php print_unescaped(\OCP\Template::quote_attr(\OCP\Util::linkTo('space_weather', 'js/app.js'))); ?>" defer></script>
+    </div>
+</div>
+
+<?php
+// CSP-safe asset loading via Nextcloud helpers
+style('space_weather', 'style');
+script('space_weather', 'app');
+?>
+
 </body>
 </html>

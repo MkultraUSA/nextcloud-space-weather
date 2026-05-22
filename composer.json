@@ -1,48 +1,37 @@
 {
-	"name": "space-weather",
-	"description": "Space Weather Dashboard - Real-time monitoring with NOAA/NASA data",
-	"version": "1.0.0",
-	"license": "AGPL-3.0-or-later",
-	"authors": [
-		{
-			"name": "Nextcloud Space Weather Project",
-			"email": "admin@example.com"
-		}
-	],
-	"keywords": [
-		"nextcloud",
-		"space-weather",
-		"noaa",
-		"nasa",
-		"aurora",
-		"geomagnetic",
-		"solar-activity"
-	],
-	"repositories": [
-		{
-			"type": "git",
-			"url": "https://github.com/nextcloud/space-weather.git"
-		}
-	],
-	"require": {
-		"php": "^8.0",
-		"nextcloud/ocp": "^27.0 || ^28.0 || ^29.0",
-		"guzzlehttp/guzzle": "^7.0"
-	},
-	"require-dev": {
-		"nextcloud/coding-standard": "^1.1",
-		"phpunit/phpunit": "^9.5 || ^10.0",
-		"psalm/phar": "^5.0"
-	},
-	"autoload": {
-		"psr-4": {
-			"OCA\\SpaceWeather\\": "lib/"
-		}
-	},
-	"config": {
-		"sort-packages": true,
-		"allow-plugins": {
-			"composer/installers": true
-		}
-	}
+    "name": "mkultrausa/nextcloud-space-weather",
+    "description": "Real-time space weather monitoring dashboard for Nextcloud. Tracks KP index, solar flux, X-ray flux, aurora forecasts, HF band conditions, D-RAP absorption maps, SDO solar imagery, and satellite images from NOAA, NASA, and HamQSL.",
+    "type": "project",
+    "license": "AGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Kevin Watkins",
+            "email": "k.watkins@me.com"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "nextcloud/ocp": "^27.0 || ^28.0 || ^29.0 || ^30.0 || ^31.0 || ^33.0 || ^34.0 || ^35.0",
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0",
+        "nextcloud/coding-standard": "^1.0",
+        "psalm/phar": "^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "OCA\\SpaceWeather\\": "lib/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "OCA\\SpaceWeather\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "nextcloud/coding-standard": true
+        }
+    }
 }

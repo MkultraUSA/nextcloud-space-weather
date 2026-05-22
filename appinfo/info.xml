@@ -2,43 +2,45 @@
 <info>
 	<id>space_weather</id>
 	<name>Space Weather Dashboard</name>
-	<summary>Real-time space weather monitoring with NOAA/NASA data</summary>
+	<summary>Real-time space weather monitoring with NOAA, NASA, and HamQSL data</summary>
 	<description>
 		Comprehensive dashboard for monitoring space weather conditions including:
 		- Real-time KP index and geomagnetic storms
-		- Solar flux (F10.7) measurements and charts
-		- X-ray flux monitoring with alert levels
+		- Solar flux (F10.7) measurements and trends
+		- X-ray flux monitoring with NOAA alert levels
 		- Aurora forecast predictions
 		- HF band propagation conditions
 		- D-RAP absorption maps
-		- SDO solar imagery
+		- SDO solar imagery (multiple wavelengths)
 		- Weather satellite image gallery
-		
+
 		Data sources:
 		- NOAA Space Weather Prediction Center (SWPC)
-		- NASA APIs (Earth Imagery, Solar Dynamics Observatory)
+		- NASA Solar Dynamics Observatory (SDO)
 		- HamQSL propagation data
 	</description>
 	<version>1.0.0</version>
 	<licence>AGPL-3.0-or-later</licence>
-	<author>Nextcloud Space Weather Project</author>
-	<author mail="admin@example.com">Admin</author>
-	<namespace>OCA\SpaceWeather</namespace>
+	<author>Kevin Watkins</author>
+	<author mail="k.watkins@me.com">Kevin Watkins</author>
+	<namespace>SpaceWeather</namespace>
 	<types>
 		<assignment/>
 	</types>
-	<category>tools</category>
-	<website>https://github.com/nextcloud/space-weather</website>
-	<bugs>https://github.com/nextcloud/space-weather/issues</bugs>
-	<repository>https://github.com/nextcloud/space-weather.git</repository>
+	<category>monitoring</category>
+	<website>https://github.com/MkultraUSA/nextcloud-space-weather</website>
+	<bugs>https://github.com/MkultraUSA/nextcloud-space-weather/issues</bugs>
+	<repository>https://github.com/MkultraUSA/nextcloud-space-weather.git</repository>
 	<documentation>
-		<user>https://github.com/nextcloud/space-weather/blob/main/README.md</user>
-		<developer>https://github.com/nextcloud/space-weather/blob/main/DEVELOPMENT.md</developer>
+		<user>https://github.com/MkultraUSA/nextcloud-space-weather/blob/main/README.md</user>
+		<developer>https://github.com/MkultraUSA/nextcloud-space-weather/blob/main/DEVELOPMENT.md</developer>
 	</documentation>
+	<screenshot>https://raw.githubusercontent.com/MkultraUSA/nextcloud-space-weather/main/img/screenshot-dashboard.svg</screenshot>
+	<screenshot>https://raw.githubusercontent.com/MkultraUSA/nextcloud-space-weather/main/img/screenshot-aurora.svg</screenshot>
 
 	<dependencies>
-		<nextcloud min-version="27" max-version="29"/>
-		<php min-version="8.0"/>
+		<nextcloud min-version="27" max-version="35"/>
+		<php min-version="8.0" max-version="8.4"/>
 	</dependencies>
 
 	<navigations>
@@ -50,8 +52,9 @@
 		</navigation>
 	</navigations>
 
-	<settings>
-		<personal>OCA\SpaceWeather\Settings\Personal</personal>
-		<admin>OCA\SpaceWeather\Settings\Admin</admin>
-	</settings>
+	<repair-steps>
+		<install>
+			<step>composer install --no-dev</step>
+		</install>
+	</repair-steps>
 </info>
