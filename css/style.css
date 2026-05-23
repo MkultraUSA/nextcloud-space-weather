@@ -922,6 +922,150 @@ body {
 	}
 }
 
+/* ===========================
+   Centering Utilities
+   =========================== */
+
+.center-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+}
+
+.center-image {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+}
+
+.center-image img {
+	max-width: 100%;
+	height: auto;
+}
+
+/* ===========================
+   Image Container (loading/error states)
+   =========================== */
+
+.image-container {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 100px;
+	width: 100%;
+}
+
+.image-container img {
+	display: block;
+}
+
+.image-loading {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: calc(var(--spacing-unit) * 1);
+	background: rgba(255, 255, 255, 0.8);
+	color: var(--color-text-secondary);
+	font-size: 14px;
+	font-style: italic;
+	z-index: 2;
+}
+
+.image-error {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	background: rgba(255, 235, 238, 0.9);
+	color: #c62828;
+	font-size: 14px;
+	font-weight: 500;
+	z-index: 3;
+}
+
+.image-loaded {
+	opacity: 1;
+}
+
+/* ===========================
+   ENLIL Image
+   =========================== */
+
+.enlil-image {
+	width: 100%;
+	height: auto;
+	max-height: 500px;
+	object-fit: contain;
+	border-radius: var(--border-radius);
+}
+
+/* ===========================
+   Chart Containers
+   =========================== */
+
+.chart-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+	gap: calc(var(--spacing-unit) * 2.5);
+	margin-top: calc(var(--spacing-unit) * 2);
+}
+
+.chart-container {
+	background: white;
+	border-radius: var(--border-radius);
+	padding: calc(var(--spacing-unit) * 2);
+	box-shadow: var(--shadow-md);
+	min-height: 280px;
+	display: flex;
+	flex-direction: column;
+}
+
+.chart-container h3 {
+	font-size: 15px;
+	font-weight: 600;
+	color: var(--color-text-primary);
+	margin-bottom: calc(var(--spacing-unit) * 1.5);
+	text-align: center;
+}
+
+.chart-container canvas {
+	width: 100% !important;
+	height: auto !important;
+	flex: 1;
+}
+
+.chart-loading {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex: 1;
+	color: var(--color-text-secondary);
+	font-size: 14px;
+	font-style: italic;
+}
+
+.chart-error {
+	display: none;
+	align-items: center;
+	justify-content: center;
+	flex: 1;
+	color: #c62828;
+	font-size: 14px;
+}
+
 @media (prefers-color-scheme: dark) {
 	body {
 		background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
@@ -938,6 +1082,31 @@ body {
 		color: #e0e0e0;
 	}
 
+	.chart-container,
+	.metric-card,
+	.band-info,
+	.band-table,
+	.forecast-container {
+		background: #2c2c54;
+		color: #e0e0e0;
+	}
+
+	.chart-container h3,
+	.metric-label,
+	.metric-value,
+	.band-name {
+		color: #e0e0e0;
+	}
+
+	.image-loading {
+		background: rgba(44, 44, 84, 0.9);
+		color: #b0b0d0;
+	}
+
+	.image-error {
+		background: rgba(60, 20, 20, 0.9);
+	}
+
 	.dashboard-section h2 {
 		color: #e0e0e0;
 	}
@@ -949,5 +1118,27 @@ body {
 
 	.wavelength-card {
 		background: #3a3a5c;
+	}
+
+	.satellite-card {
+		background: #2c2c54;
+	}
+
+	.chart-loading {
+		color: #b0b0d0;
+	}
+
+	.band-table td {
+		border-bottom-color: #3a3a5c;
+	}
+}
+
+/* ===========================
+   Responsive: Chart Grid
+   =========================== */
+
+@media (max-width: 900px) {
+	.chart-grid {
+		grid-template-columns: 1fr;
 	}
 }

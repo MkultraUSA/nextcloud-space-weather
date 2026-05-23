@@ -62,12 +62,14 @@ class PageController extends Controller {
             $data['solarFlux'] = $flux['current'] ?? 0;
             $data['fluxStatus'] = $flux['status'] ?? 'low';
             $data['fluxTimestamp'] = $flux['timestamp'] ?? '';
+            $data['fluxHistory'] = $flux['raw'] ?? [];
             $data['fluxError'] = false;
         } catch (\Exception $e) {
             $this->logger->error('Solar flux failed: ' . $e->getMessage());
             $data['solarFlux'] = 0;
             $data['fluxStatus'] = 'error';
             $data['fluxTimestamp'] = '';
+            $data['fluxHistory'] = [];
             $data['fluxError'] = true;
             $data['hasError'] = true;
         }
@@ -79,6 +81,7 @@ class PageController extends Controller {
             $data['xrayAlert'] = $xray['alert_level'] ?? 'quiet';
             $data['xrayIntensity'] = $xray['intensity'] ?? 0;
             $data['xrayTimestamp'] = $xray['timestamp'] ?? '';
+            $data['xrayHistory'] = $xray['raw'] ?? [];
             $data['xrayError'] = false;
         } catch (\Exception $e) {
             $this->logger->error('X-ray flux failed: ' . $e->getMessage());
@@ -86,6 +89,7 @@ class PageController extends Controller {
             $data['xrayAlert'] = 'error';
             $data['xrayIntensity'] = 0;
             $data['xrayTimestamp'] = '';
+            $data['xrayHistory'] = [];
             $data['xrayError'] = true;
             $data['hasError'] = true;
         }
