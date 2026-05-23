@@ -40,6 +40,8 @@ class ImageController extends Controller {
 		// GOES satellites (NOAA) — verified 2026-05-22
 		'goes16_fd' => 'https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/678x678.jpg',
 		'goes18_fd' => 'https://cdn.star.nesdis.noaa.gov/GOES18/ABI/FD/GEOCOLOR/678x678.jpg',
+		'enlil'        => 'https://services.swpc.noaa.gov/images/animations/enlil/latest.jpg',
+
 	];
 
 	public function __construct(
