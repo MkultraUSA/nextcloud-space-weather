@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Space Weather Dashboard</title>
-</head>
-<body>
+<?php
+script('space_weather', 'script');
+style('space_weather', 'style');
+?>
 <div id="app" class="space-weather-app">
 
     <div class="app-header">
@@ -23,6 +19,27 @@
 
     <div class="dashboard-container">
 
+        <div class="dashboard-section">
+            <h2>Solar Wind Prediction (WSA-ENLIL)
+                <span class="loading-spinner" id="enlil-loading" style="display:none;"></span>
+            </h2>
+            <div class="wsa-description">
+                <p>Shown below is the latest forecast of conditions in the solar wind, as predicted by the WSA-Enlil model. The solar wind is a fast-moving stream of charged particles emanating from the Sun and moving outwards towards the Earth and planets. During &ldquo;fair-weather&rdquo; conditions the solar wind still contains significant variations in density and speed which originate at the solar surface and are imparted with a spiral appearance due to the Sun&rsquo;s roughly 27 day rotation.</p>
+                <p>At irregular intervals the &ldquo;fair-weather&rdquo; is interrupted by major solar eruptions known as Coronal Mass Ejections (CMEs) which are propelled outwards into the background wind. Variations in the plasma density and speed within these solar storms can be much more dramatic than during quiet conditions. For both &ldquo;fair-weather&rdquo; and &ldquo;storm&rdquo; conditions, predicting the arrival at Earth of variations in the solar wind is important because these can lead to geomagnetic storms.</p>
+            </div>
+            <div class="image-container">
+                <a href="<?php print_unescaped(\OCP\Server::get(\OCP\IURLGenerator::class)->linkToRoute('space_weather.image.getimage', ['key' => 'enlil'])); ?>" class="sw-image-link"><img src="<?php print_unescaped(\OCP\Server::get(\OCP\IURLGenerator::class)->linkToRoute('space_weather.image.getimage', ['key' => 'enlil'])); ?>"
+                     alt="WSA-ENLIL Solar Wind Prediction" class="enlil-image" loading="lazy">
+                <div class="image-loading">
+                    <div class="loading-spinner"></div>
+                    <span>Loading Enlil image...</span>
+                </div>
+                <div class="image-error" style="display:none;">
+                    <span>Failed to load Enlil image</span>
+                </div>
+            </div>
+            <p class="forecast-placeholder" style="display:none">Enlil image temporarily unavailable</p>
+        </div>
         <!-- KP Index -->
         <div class="dashboard-section">
             <h2>Geomagnetic Activity
@@ -75,10 +92,8 @@
             </h2>
             <div class="forecast-container">
                 <div class="image-container">
-                    <img src="<?php print_unescaped(\OCP\Server::get(\OCP\IURLGenerator::class)->linkToRoute('space_weather.image.getimage', ['key' => 'aurora_north'])); ?>"
-                         alt="Aurora Forecast" class="forecast-image" loading="lazy"
-                         onerror="this.parentNode.querySelector('.image-error').style.display='flex'; this.parentNode.querySelector('.image-loading').style.display='none'; this.classList.add('image-loaded');"
-                         onload="this.parentNode.querySelector('.image-loading').style.display='none'; this.parentNode.querySelector('.image-error').style.display='none'; this.classList.add('image-loaded');">
+                    <a href="<?php print_unescaped(\OCP\Server::get(\OCP\IURLGenerator::class)->linkToRoute('space_weather.image.getimage', ['key' => 'aurora_north'])); ?>" class="sw-image-link"><img src="<?php print_unescaped(\OCP\Server::get(\OCP\IURLGenerator::class)->linkToRoute('space_weather.image.getimage', ['key' => 'aurora_north'])); ?>"
+                         alt="Aurora Forecast" class="forecast-image" loading="lazy">
                     <div class="image-loading">
                         <div class="loading-spinner"></div>
                         <span>Loading aurora forecast...</span>
@@ -149,10 +164,8 @@
                 <div class="drap-map-item">
                     <h3>Global D-RAP</h3>
                     <div class="image-container">
-                        <img src="<?php print_unescaped(\OCP\Server::get(\OCP\IURLGenerator::class)->linkToRoute('space_weather.image.getimage', ['key' => 'drap_global'])); ?>"
-                             alt="D-RAP Global Map" class="drap-map" loading="lazy"
-                             onerror="this.parentNode.querySelector('.image-error').style.display='flex'; this.parentNode.querySelector('.image-loading').style.display='none'; this.classList.add('image-loaded');"
-                             onload="this.parentNode.querySelector('.image-loading').style.display='none'; this.parentNode.querySelector('.image-error').style.display='none'; this.classList.add('image-loaded');">
+                        <a href="<?php print_unescaped(\OCP\Server::get(\OCP\IURLGenerator::class)->linkToRoute('space_weather.image.getimage', ['key' => 'drap_global'])); ?>" class="sw-image-link"><img src="<?php print_unescaped(\OCP\Server::get(\OCP\IURLGenerator::class)->linkToRoute('space_weather.image.getimage', ['key' => 'drap_global'])); ?>"
+                             alt="D-RAP Global Map" class="drap-map" loading="lazy">
                         <div class="image-loading">
                             <div class="loading-spinner"></div>
                             <span>Loading D-RAP map...</span>
@@ -188,10 +201,8 @@
                     <h3><?php p($img['name']); ?></h3>
                     <p class="wavelength-desc"><?php p($img['desc']); ?></p>
                     <div class="image-container">
-                        <img src="<?php print_unescaped(\OCP\Server::get(\OCP\IURLGenerator::class)->linkToRoute('space_weather.image.getimage', ['key' => $img['key']])); ?>"
-                             alt="<?php p($img['name']); ?>" class="wavelength-image" loading="lazy"
-                             onerror="this.parentNode.querySelector('.image-error').style.display='flex'; this.parentNode.querySelector('.image-loading').style.display='none'; this.classList.add('image-loaded');"
-                             onload="this.parentNode.querySelector('.image-loading').style.display='none'; this.parentNode.querySelector('.image-error').style.display='none'; this.classList.add('image-loaded');">
+                        <a href="<?php print_unescaped(\OCP\Server::get(\OCP\IURLGenerator::class)->linkToRoute('space_weather.image.getimage', ['key' => $img['key']])); ?>" class="sw-image-link"><img src="<?php print_unescaped(\OCP\Server::get(\OCP\IURLGenerator::class)->linkToRoute('space_weather.image.getimage', ['key' => $img['key']])); ?>"
+                             alt="<?php p($img['name']); ?>" class="wavelength-image" loading="lazy">
                         <div class="image-loading">
                             <div class="loading-spinner"></div>
                             <span>Loading...</span>
@@ -223,10 +234,8 @@
                 <div class="satellite-card">
                     <h3><?php p($sat['name']); ?></h3>
                     <div class="image-container">
-                        <img src="<?php print_unescaped(\OCP\Server::get(\OCP\IURLGenerator::class)->linkToRoute('space_weather.image.getimage', ['key' => $sat['key']])); ?>"
-                             alt="<?php p($sat['name']); ?>" class="satellite-image" loading="lazy"
-                             onerror="this.parentNode.querySelector('.image-error').style.display='flex'; this.parentNode.querySelector('.image-loading').style.display='none'; this.classList.add('image-loaded');"
-                             onload="this.parentNode.querySelector('.image-loading').style.display='none'; this.parentNode.querySelector('.image-error').style.display='none'; this.classList.add('image-loaded');">
+                        <a href="<?php print_unescaped(\OCP\Server::get(\OCP\IURLGenerator::class)->linkToRoute('space_weather.image.getimage', ['key' => $sat['key']])); ?>" class="sw-image-link"><img src="<?php print_unescaped(\OCP\Server::get(\OCP\IURLGenerator::class)->linkToRoute('space_weather.image.getimage', ['key' => $sat['key']])); ?>"
+                             alt="<?php p($sat['name']); ?>" class="satellite-image" loading="lazy">
                         <div class="image-loading">
                             <div class="loading-spinner"></div>
                             <span>Loading...</span>
@@ -239,48 +248,5 @@
                 <?php endforeach; ?>
             </div>
         </div>
-
-        <!-- Solar Wind Prediction (WSA-ENLIL) -->
-        <div class="dashboard-section">
-            <h2>Solar Wind Prediction (WSA-ENLIL)
-                <span class="loading-spinner" id="enlil-loading" style="display:none;"></span>
-            </h2>
-            <div class="image-container">
-                <img src="<?php print_unescaped(\OCP\Server::get(\OCP\IURLGenerator::class)->linkToRoute('space_weather.image.getimage', ['key' => 'enlil'])); ?>"
-                     alt="WSA-ENLIL Solar Wind Prediction" class="enlil-image" loading="lazy"
-                     onerror="this.parentNode.querySelector('.image-error').style.display='flex'; this.parentNode.querySelector('.image-loading').style.display='none'; this.classList.add('image-loaded');"
-                     onload="this.parentNode.querySelector('.image-loading').style.display='none'; this.parentNode.querySelector('.image-error').style.display='none'; this.classList.add('image-loaded');">
-                <div class="image-loading">
-                    <div class="loading-spinner"></div>
-                    <span>Loading Enlil image...</span>
-                </div>
-                <div class="image-error" style="display:none;">
-                    <span>Failed to load Enlil image</span>
-                </div>
-            </div>
-            <p class="forecast-placeholder" style="display:none">Enlil image temporarily unavailable</p>
-        </div>
-
-    </div>
 </div>
-
-<?php
-style('space_weather', 'style');
-?>
-
-<script>
-// Simple refresh — reload the page
-document.getElementById('refresh-btn').addEventListener('click', function() {
-    location.reload();
-});
-
-// Hide loading spinners after a timeout in case of stale loading states
-setTimeout(function() {
-    document.querySelectorAll('.loading-spinner').forEach(function(spinner) {
-        spinner.style.display = 'none';
-    });
-}, 10000); // 10 seconds
-</script>
-
-</body>
-</html>
+</div>

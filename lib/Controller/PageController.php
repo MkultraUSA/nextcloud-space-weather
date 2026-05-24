@@ -3,18 +3,14 @@
  * @copyright Copyright (c) 2024 Kevin Watkins
  * @license AGPL-3.0-or-later
  */
-
 declare(strict_types=1);
-
 namespace OCA\SpaceWeather\Controller;
-
 use OCA\SpaceWeather\Service\SpaceWeatherService;
 use OCA\SpaceWeather\Service\WeatherSatelliteService;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IRequest;
 use Psr\Log\LoggerInterface;
-
 class PageController extends Controller {
     public function __construct(
         string $appName,
@@ -25,7 +21,6 @@ class PageController extends Controller {
     ) {
         parent::__construct($appName, $request);
     }
-
     /**
      * @NoAdminRequired
      * @NoCSRFRequired
@@ -37,7 +32,6 @@ class PageController extends Controller {
     public function index(): TemplateResponse {
         $data = [];
         $data['hasError'] = false; // Global error flag if needed
-
         // KP Index
         try {
             $kp = $this->weatherService->getKpIndex();
@@ -55,7 +49,6 @@ class PageController extends Controller {
             $data['kpError'] = true;
             $data['hasError'] = true;
         }
-
         // Solar Flux
         try {
             $flux = $this->weatherService->getSolarFlux();
@@ -71,7 +64,6 @@ class PageController extends Controller {
             $data['fluxError'] = true;
             $data['hasError'] = true;
         }
-
         // X-Ray Flux
         try {
             $xray = $this->weatherService->getXrayFlux();
@@ -89,7 +81,6 @@ class PageController extends Controller {
             $data['xrayError'] = true;
             $data['hasError'] = true;
         }
-
         // Aurora Forecast
         try {
             $aurora = $this->weatherService->getAuroraForecast();
@@ -101,7 +92,6 @@ class PageController extends Controller {
             $data['auroraError'] = true;
             $data['hasError'] = true;
         }
-
         // Band Conditions
         try {
             $bands = $this->satelliteService->getBandConditions();
@@ -118,15 +108,11 @@ class PageController extends Controller {
             $data['bandError'] = true;
             $data['hasError'] = true;
         }
-
         $data['lastUpdate'] = date('H:i');
-
         return new TemplateResponse(
             $this->appName,
             'content/index',
-            $data,
-            'blank'
+            $data
         );
     }
-
 }
