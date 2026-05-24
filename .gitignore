@@ -30,3 +30,7 @@ logs/
 # Testing
 coverage/
 .phpunit.result.cache
+
+# Backups
+*.bak
+js.bak/
