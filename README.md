@@ -59,6 +59,7 @@ https://your-nextcloud.example.com/apps/space_weather/
 ### Backend (PHP)
 - **Controllers**: APIController (8 REST endpoints), PageController (dashboard rendering), ImageController (CSP-safe image proxy)
 - **Services**: SpaceWeatherService (NOAA KP/flux/X-ray/aurora), WeatherSatelliteService (HamQSL bands, D-RAP, SDO, satellites), CacheService (TTL-based caching)
+- **Settings**: Admin.php (ISettings panel for cache TTL, API timeout, data source toggles), AdminSection.php (IIconSection for settings navigation)
 - **Framework**: Nextcloud AppFramework with IBootstrap, dependency injection, PSR-4 autoloading
 
 ### Frontend (Vanilla JS)
@@ -244,30 +245,6 @@ Users can manually trigger a cache refresh via the "Refresh" button in the dashb
 3. Updates the UI with new values
 4. Updates the last-update timestamp
 
-## Architecture
-
-### Backend (PHP)
-- **Application.php**: Bootstrap and initialization
-- **APIController.php**: REST API endpoint handlers
-- **SpaceWeatherService.php**: NOAA/NASA data fetching logic
-- **WeatherSatelliteService.php**: Satellite and imagery data handling
-- **CacheService.php**: Nextcloud ICache wrapper with TTL management
-
-### Frontend (Vue.js 3)
-- **app.js**: Main Vue application with state management
-- **SpaceWeatherCard.vue**: KP index, X-ray, solar flux display
-- **BandConditions.vue**: HF band propagation table component
-- **SatelliteGallery.vue**: Satellite image gallery
-- **style.css**: Responsive mobile-first CSS
-
-### Data Sources
-- **NOAA SWPC**: KP index, Solar flux, X-ray flux, Aurora forecasts
-- **NASA**: SDO imagery via direct URLs
-- **HamQSL**: HF band propagation conditions (XML)
-- **NOAA GOES**: Weather satellite imagery
-- **Roshydromet**: Meteor-M2 satellite data (placeholder)
-- **JMA**: Himawari-8 satellite data (placeholder)
-
 ## Code Style & Quality
 
 ### PHP Standards
@@ -276,10 +253,9 @@ Users can manually trigger a cache refresh via the "Refresh" button in the dashb
 - Comprehensive error handling with proper logging
 - Nextcloud 27+ API compatibility
 
-### JavaScript/Vue
-- ES2020+ syntax
-- Vue.js 3 Composition API compatible
-- Reactive state management
+### JavaScript
+- ES2020+ syntax (vanilla, no framework)
+- CSP-compliant — no `eval()`, no inline handlers
 - Proper error boundaries
 - Accessibility (a11y) compliant
 
@@ -319,16 +295,14 @@ The application implements comprehensive error handling:
 
 ### Local Development Setup
 ```bash
-# Install dependencies
-npm install
+# Clone the repository
+git clone https://github.com/MkultraUSA/nextcloud-space-weather.git
+cd nextcloud-space-weather
+
+# Install PHP dependencies
 composer install
 
-# Start development server
-npm run dev
-
-# Run linting
-npm run lint
-npm run lint:fix
+# No build step required — all JavaScript is vanilla ES2020+ and CSP-compliant
 ```
 
 ### Testing API Calls
@@ -396,17 +370,10 @@ Contributions welcome! Please ensure:
 ## Support
 
 For issues, feature requests, or questions:
-- GitHub Issues: https://github.com/nextcloud/space-weather/issues
-- Documentation: https://github.com/nextcloud/space-weather/blob/main/README.md
+- GitHub Issues: https://github.com/MkultraUSA/nextcloud-space-weather/issues
+- Documentation: https://github.com/MkultraUSA/nextcloud-space-weather/blob/main/README.md
 - Nextcloud Community: https://help.nextcloud.com/
 
 ## Changelog
 
-### v1.0.0 (2024-01-01)
-- Initial release
-- KP index, solar flux, X-ray flux monitoring
-- Aurora forecasts and band conditions
-- SDO solar imagery gallery
-- Weather satellite imagery
-- Responsive mobile-first design
-- TTL-based caching system
+See [CHANGELOG.md](CHANGELOG.md) for the full release history.
