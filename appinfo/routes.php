@@ -10,9 +10,6 @@ return [
     'routes' => [
         // Page routes
         ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
-        ['name' => 'settings#index', 'url' => '/settings', 'verb' => 'GET'],
-        ['name' => 'settings#submitFeatureRequest', 'url' => '/settings/feature-request', 'verb' => 'POST'],
-
         // API routes
         ['name' => 'api#getKpIndex',         'url' => '/api/v1/kp-index',          'verb' => 'GET'],
         ['name' => 'api#getSolarFlux',       'url' => '/api/v1/solar-flux',        'verb' => 'GET'],

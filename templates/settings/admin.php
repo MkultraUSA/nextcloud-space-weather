@@ -2,9 +2,17 @@
 /** @var array $_ */
 ?>
 <div class="space-weather-admin-settings">
-	<form id="space-weather-admin-form">
-		<p class="settings-hint">Configure how the Space Weather Dashboard fetches and caches data from external sources.</p>
+	<h3>Data Sources</h3>
+	<p>The Space Weather Dashboard aggregates data from these sources:</p>
+	<ul>
+		<li><a href="https://www.swpc.noaa.gov/" target="_blank">NOAA Space Weather Prediction Center (SWPC)</a> — KP Index, Solar Flux, X-Ray Flux, Aurora Forecast, D-RAP Absorption</li>
+		<li><a href="https://sdo.gsfc.nasa.gov/" target="_blank">NASA Solar Dynamics Observatory (SDO)</a> — Solar imagery at 6 wavelengths</li>
+		<li><a href="https://www.hamqsl.com/solarxml.php" target="_blank">HamQSL.com</a> — HF band propagation conditions</li>
+		<li><a href="https://www.star.nesdis.noaa.gov/GOES/" target="_blank">NOAA GOES Satellites</a> — Weather satellite imagery</li>
+	</ul>
 
+	<h3>Cache Configuration</h3>
+	<form id="space-weather-admin-form">
 		<div class="form-group">
 			<label for="cache-ttl">Cache TTL (seconds)</label>
 			<input type="number" id="cache-ttl" name="cache_ttl" value="300" min="60" max="3600">
@@ -17,38 +25,57 @@
 			<p class="settings-hint">Maximum time to wait for external API responses.</p>
 		</div>
 
-		<h3>Data Sources</h3>
 		<div class="form-group">
-			<input type="checkbox" id="enable-kp" name="enable_kp" checked>
-			<label for="enable-kp">KP Index (NOAA SWPC)</label>
+			<label for="enable-kp">
+				<input type="checkbox" id="enable-kp" name="enable_kp" checked>
+				KP Index (NOAA SWPC)
+			</label>
 		</div>
 		<div class="form-group">
-			<input type="checkbox" id="enable-flux" name="enable_flux" checked>
-			<label for="enable-flux">Solar Flux F10.7 (NOAA SWPC)</label>
+			<label for="enable-flux">
+				<input type="checkbox" id="enable-flux" name="enable_flux" checked>
+				Solar Flux F10.7 (NOAA SWPC)
+			</label>
 		</div>
 		<div class="form-group">
-			<input type="checkbox" id="enable-xray" name="enable_xray" checked>
-			<label for="enable-xray">X-Ray Flux (NOAA SWPC)</label>
+			<label for="enable-xray">
+				<input type="checkbox" id="enable-xray" name="enable_xray" checked>
+				X-Ray Flux (NOAA SWPC)
+			</label>
 		</div>
 		<div class="form-group">
-			<input type="checkbox" id="enable-aurora" name="enable_aurora" checked>
-			<label for="enable-aurora">Aurora Forecast (NOAA SWPC)</label>
+			<label for="enable-aurora">
+				<input type="checkbox" id="enable-aurora" name="enable_aurora" checked>
+				Aurora Forecast (NOAA SWPC)
+			</label>
 		</div>
 		<div class="form-group">
-			<input type="checkbox" id="enable-bands" name="enable_bands" checked>
-			<label for="enable-bands">HF Band Conditions (HamQSL)</label>
+			<label for="enable-bands">
+				<input type="checkbox" id="enable-bands" name="enable_bands" checked>
+				HF Band Conditions (HamQSL)
+			</label>
 		</div>
 		<div class="form-group">
-			<input type="checkbox" id="enable-drap" name="enable_drap" checked>
-			<label for="enable-drap">D-RAP Absorption (NOAA SWPC)</label>
+			<label for="enable-drap">
+				<input type="checkbox" id="enable-drap" name="enable_drap" checked>
+				D-RAP Absorption (NOAA SWPC)
+			</label>
 		</div>
 		<div class="form-group">
-			<input type="checkbox" id="enable-sdo" name="enable_sdo" checked>
-			<label for="enable-sdo">SDO Solar Imagery (NASA)</label>
+			<label for="enable-sdo">
+				<input type="checkbox" id="enable-sdo" name="enable_sdo" checked>
+				SDO Solar Imagery (NASA)
+			</label>
 		</div>
 		<div class="form-group">
-			<input type="checkbox" id="enable-satellite" name="enable_satellite" checked>
-			<label for="enable-satellite">Satellite Images (GOES/NOAA)</label>
+			<label for="enable-satellite">
+				<input type="checkbox" id="enable-satellite" name="enable_satellite" checked>
+				Satellite Images (GOES/NOAA)
+			</label>
 		</div>
 	</form>
+
+	<h3>About</h3>
+	<p>Version 1.0.0 &mdash; by Kevin Watkins &mdash; <a href="https://github.com/MkultraUSA/nextcloud-space-weather" target="_blank">GitHub</a></p>
+	<p>Real-time space weather monitoring with NOAA, NASA, and HamQSL data.</p>
 </div>
