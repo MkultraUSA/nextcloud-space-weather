@@ -119,30 +119,30 @@ style('space_weather', 'style');
             <?php if (!empty($_['bandConditions']) && !isset($_['bandConditions']['error'])): ?>
             <?php $bands = $_['bandConditions']; ?>
             <div class="band-info">
-                <span class="band-info-item">Solar Index: <?php p($bands['solar_index'] ?? '--'); ?></span>
+                <span class="band-info-item">Solar Flux: <?php p($bands['solar_flux'] ?? '--'); ?> sfu</span>
                 <span class="band-info-item">Sunspots: <?php p($bands['sunspot_number'] ?? '--'); ?></span>
+                <span class="band-info-item">MUF: <?php p($bands['muf'] ?? 'N/A'); ?></span>
+                <span class="band-info-item">K-Index: <?php p($bands['k_index'] ?? '--'); ?></span>
+                <span class="band-info-item">X-Ray: <?php p($bands['xray'] ?? '--'); ?></span>
             </div>
             <table class="band-table">
                 <thead>
                     <tr>
-                        <th>Band</th><th>Condition</th><th>Day</th><th>Night</th>
+                        <th>Band</th><th>Time</th><th>Condition</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                     $bandData = $bands['bands'] ?? [];
-                    $bandOrder = ['80m','60m','40m','30m','20m','17m','15m','12m','10m','6m','2m'];
-                    foreach ($bandOrder as $bn):
-                        if (!isset($bandData[$bn])) continue;
-                        $b = $bandData[$bn];
+                    $bandOrder = ['80m-40m_day','80m-40m_night','30m-20m_day','30m-20m_night','17m-15m_day','17m-15m_night','12m-10m_day','12m-10m_night'];
+                    foreach ($bandOrder as $bk):
+                        if (!isset($bandData[$bk])) continue;
+                        $b = $bandData[$bk];
                     ?>
                     <tr>
-                        <td class="band-name"><?php p($b['name'] ?? $bn); ?></td>
+                        <td class="band-name"><?php p($b['name'] ?? $bk); ?></td>
+                        <td><?php p($b['time'] ?? '--'); ?></td>
                         <td class="band-cond band-<?php p($b['condition'] ?? 'unknown'); ?>"><?php p($b['condition'] ?? '--'); ?></td>
-                        <td>
-                            <div class="eff-bar" style="width:<?php p(($b['efficiency'] ?? 0) . '%'); ?>"><?php p($b['legend'] ?? '-'); ?></div>
-                        </td>
-                        <td><?php p(($b['efficiency'] ?? '--') . '%'); ?></td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
