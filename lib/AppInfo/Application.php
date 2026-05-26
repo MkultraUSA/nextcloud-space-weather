@@ -26,7 +26,10 @@ class Application extends App implements IBootstrap {
 	}
 
 	public function register(IRegistrationContext $context): void {
-		// Controllers and services are auto-registered via PSR-4 autoloading
+		// Register admin settings
+		$context->registerService('OCA\SpaceWeather\Settings\Admin', function($c) {
+			return new \OCA\SpaceWeather\Settings\Admin();
+		});
 	}
 
 	public function boot(IBootContext $context): void {

@@ -40,7 +40,7 @@ class ImageController extends Controller {
 		// GOES satellites (NOAA) — verified 2026-05-22
 		'goes16_fd' => 'https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/678x678.jpg',
 		'goes18_fd' => 'https://cdn.star.nesdis.noaa.gov/GOES18/ABI/FD/GEOCOLOR/678x678.jpg',
-		'enlil'        => 'https://services.swpc.noaa.gov/images/animations/enlil/latest.jpg',
+		'enlil'        => 'https://iswa.ccmc.gsfc.nasa.gov/iswa_data_tree/model/heliosphere/wsa-enlil-cone/animation-cme-density/',
 
 	];
 
@@ -66,7 +66,7 @@ class ImageController extends Controller {
 
 		try {
 			$url = self::IMAGE_URLS[$key];
-			$body = $this->fetchImage($url);
+			$body = $this->fetchImage($url, $key);
 
 			if ($body === false || $body === '') {
 				return new DataResponse(['error' => 'Failed to fetch image from source'], 502);
@@ -91,7 +91,25 @@ class ImageController extends Controller {
 	/**
 	 * Fetch an image from an external URL with SSL and timeout configuration.
 	 */
-	private function fetchImage(string $url): string|false {
+	private function fetchImage(string $url, ?string $key = null): string|false {
+        if ($key === 'enlil') {
+            $enlilUrl = $this->resolveEnlilUrl();
+            $opts = [
+                'http' => [
+                    'timeout'    => 15,
+                    'user_agent' => 'Nextcloud-SpaceWeather/1.0',
+                    'follow_location' => 1,
+                    'max_redirects'   => 3,
+                ],
+                'ssl' => [
+                    'verify_peer'      => false,
+                    'verify_peer_name' => false,
+                ],
+            ];
+            $context = stream_context_create($opts);
+            return @file_get_contents($enlilUrl, false, $context);
+        }
+
 		$opts = [
 			'http' => [
 				'timeout'    => 15,
@@ -127,4 +145,28 @@ class ImageController extends Controller {
 		// Fallback
 		return 'image/jpeg';
 	}
+
+    private function resolveEnlilUrl(): string {
+        try {
+            $year = date("Y");
+            $month = date("m");
+            $baseUrl = "https://iswa.ccmc.gsfc.nasa.gov/iswa_data_tree/model/heliosphere/wsa-enlil-cone/animation-cme-density/";
+            $dirUrl = $baseUrl . $year . "/" . $month . "/";
+            $ctx = stream_context_create(["http" => ["timeout" => 10, "user_agent" => "Nextcloud-SpaceWeather/1.0"]]);
+            $html = @file_get_contents($dirUrl, false, $ctx);
+            if ($html === false) {
+                return "https://services.swpc.noaa.gov/images/animations/enlil/latest.jpg";
+            }
+            preg_match_all('/href="([^"]+\.gif)"/i', $html, $matches);
+            $files = $matches[1] ?? [];
+            if (empty($files)) {
+                return "https://services.swpc.noaa.gov/images/animations/enlil/latest.jpg";
+            }
+            rsort($files);
+            return $dirUrl . $files[0];
+        } catch (\Throwable $e) {
+            return "https://services.swpc.noaa.gov/images/animations/enlil/latest.jpg";
+        }
+    }
+
 }

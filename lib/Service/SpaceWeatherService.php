@@ -235,4 +235,6 @@ class SpaceWeatherService {
 		}
 		return 'x_class';
 	}
+
+
 }
