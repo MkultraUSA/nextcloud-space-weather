@@ -35,8 +35,8 @@
 		<user>https://github.com/MkultraUSA/nextcloud-space-weather/blob/main/README.md</user>
 		<developer>https://github.com/MkultraUSA/nextcloud-space-weather/blob/main/DEVELOPMENT.md</developer>
 	</documentation>
-	<screenshot>https://raw.githubusercontent.com/MkultraUSA/nextcloud-space-weather/main/img/screenshot-dashboard.svg</screenshot>
-	<screenshot>https://raw.githubusercontent.com/MkultraUSA/nextcloud-space-weather/main/img/screenshot-aurora.svg</screenshot>
+	<screenshot>https://raw.githubusercontent.com/MkultraUSA/nextcloud-space-weather/main/img/screenshot-dashboard.png</screenshot>
+	<screenshot>https://raw.githubusercontent.com/MkultraUSA/nextcloud-space-weather/main/img/screenshot-settings.png</screenshot>
 
 	<dependencies>
 		<nextcloud min-version="27" max-version="35"/>
