@@ -26,11 +26,7 @@ class Application extends App implements IBootstrap {
 	}
 
 	public function register(IRegistrationContext $context): void {
-		// Register admin settings panel (appears under Settings -> Administration)
-		$context->registerAdmin('OCA\SpaceWeather\Settings\Admin');
-
-		// Register admin settings section icon
-		$context->registerAdminSection('OCA\SpaceWeather\Settings\AdminSection');
+		// Services auto-register via PSR-11 container in lib/
 	}
 
 	public function boot(IBootContext $context): void {
