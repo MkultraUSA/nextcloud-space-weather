@@ -52,6 +52,11 @@
 		</navigation>
 	</navigations>
 
+	<settings>
+		<admin>OCA\SpaceWeather\Settings\Admin</admin>
+		<admin-section>OCA\SpaceWeather\Settings\AdminSection</admin-section>
+	</settings>
+
 	<repair-steps>
 		<install>
 			<step>composer install --no-dev</step>
