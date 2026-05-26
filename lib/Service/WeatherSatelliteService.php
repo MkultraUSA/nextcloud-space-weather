@@ -58,7 +58,7 @@ class WeatherSatelliteService {
 
 		try {
 			$client = $this->clientService->newClient();
-			$response = $client->get(self::HAMQSL_BASE . '/solardata/autoham.php', [
+			$response = $client->get(self::HAMQSL_BASE . '/solarxml.php', [
 				'timeout' => 10,
 			]);
 
@@ -72,23 +72,15 @@ class WeatherSatelliteService {
 			}
 
 			$bands = [];
-			if (isset($xml->propagation->band)) {
-				foreach ($xml->propagation->band as $band) {
+			if (isset($xml->solardata->calculatedconditions->band)) {
+				foreach ($xml->solardata->calculatedconditions->band as $band) {
 					$bandName = (string) $band['name'];
-					$condition = (string) ($band->condition ?? $band ?? '--');
+					$time = (string) ($band['time'] ?? 'day');
 
-					// Handle both element and attribute based condition
-					$condStr = $condition;
-					if (empty($condStr)) {
-						$condStr = (string) $band;
-					}
-
-					$bands[$bandName] = [
+					$bands[$bandName . '_' . $time] = [
 						'name'       => $bandName,
-						'condition'  => $condStr,
-						'efficiency' => isset($band->efficiency) ? (int) $band->efficiency : 0,
-						'legend'     => isset($band->legend) ? (string) $band->legend : '',
-						'muf'        => isset($band->muf) ? (float) $band->muf : 0,
+						'time'       => $time,
+						'condition'  => (string) $band,
 					];
 				}
 			}
@@ -96,8 +88,11 @@ class WeatherSatelliteService {
 			$bandData = [
 				'bands'          => $bands,
 				'timestamp'      => date('c'),
-				'solar_index'    => isset($xml->solar->solarindex) ? (int) $xml->solar->solarindex : 0,
-				'sunspot_number' => isset($xml->solar->sunspots) ? (int) $xml->solar->sunspots : 0,
+				'solar_flux'     => isset($xml->solardata->solarflux) ? (int) $xml->solardata->solarflux : 0,
+				'sunspot_number' => isset($xml->solardata->sunspots) ? (int) $xml->solardata->sunspots : 0,
+				'muf'            => (string) ($xml->solardata->muf ?? 'N/A'),
+				'k_index'        => isset($xml->solardata->kindex) ? (int) $xml->solardata->kindex : 0,
+				'xray'           => (string) ($xml->solardata->xray ?? '--'),
 			];
 
 			$this->cacheService->setForecast($cacheKey, json_encode($bandData));
