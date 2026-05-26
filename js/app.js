@@ -165,12 +165,12 @@ var SW = {
         }
 
         var bands = data.data.bands;
-        var solarIdx = data.data.solar_index || '--';
+        var solarIdx = data.data.solar_flux || '--';
         var sunspots = data.data.sunspot_number || '--';
 
         // Header info row
         var info = SW.el('div', 'band-info');
-        info.appendChild(SW.el('span', 'band-info-item', 'Solar Index: ' + solarIdx));
+        info.appendChild(SW.el('span', 'band-info-item', 'Solar Flux: ' + solarIdx));
         info.appendChild(SW.el('span', 'band-info-item', 'Sunspots: ' + sunspots));
         container.appendChild(info);
 
@@ -180,7 +180,7 @@ var SW = {
 
         var thead = document.createElement('thead');
         var tr = document.createElement('tr');
-        ['Band', 'Condition', 'Day', 'Night', 'MUF'].forEach(function (h) {
+        ['Band', 'Condition', 'Time', 'Rating'].forEach(function (h) {
             var th = document.createElement('th');
             th.textContent = h;
             tr.appendChild(th);
@@ -207,8 +207,8 @@ var SW = {
             dayTd.appendChild(dayBar);
             row.appendChild(dayTd);
 
-            row.appendChild(SW.el('td', '', b.efficiency !== undefined ? b.efficiency + '%' : '--'));
-            row.appendChild(SW.el('td', '', b.muf !== undefined ? b.muf + ' MHz' : '--'));
+            row.appendChild(SW.el('td', '', b.time || '--'));
+            row.appendChild(SW.el('td', '', b.condition || '--'));
             tbody.appendChild(row);
         });
         table.appendChild(tbody);

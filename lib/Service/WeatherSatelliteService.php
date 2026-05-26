@@ -24,7 +24,7 @@ use SimpleXMLElement;
  */
 class WeatherSatelliteService {
 
-	private const HAMQSL_BASE    = 'http://www.hamqsl.com';
+	private const HAMQSL_BASE    = 'https://www.hamqsl.com';
 	private const NOAA_DRAP_BASE = 'https://services.swpc.noaa.gov';
 	private const NASA_SDO_BASE  = 'https://sdo.gsfc.nasa.gov';
 	private const GOES_BASE      = 'https://cdn.star.nesdis.noaa.gov';
@@ -115,8 +115,9 @@ class WeatherSatelliteService {
 		return [
 			'bands'          => [],
 			'timestamp'      => date('c'),
-			'solar_index'    => 0,
+			'solar_flux'     => 0,
 			'sunspot_number' => 0,
+			'muf'            => 'N/A',
 			'error'          => true,
 			'message'        => 'HamQSL propagation data unavailable',
 		];
