@@ -4,20 +4,22 @@
 	<name>Space Weather Dashboard</name>
 	<summary>Real-time space weather monitoring with NOAA, NASA, and HamQSL data</summary>
 	<description>
-		Comprehensive dashboard for monitoring space weather conditions including:
-		- Real-time KP index and geomagnetic storms
-		- Solar flux (F10.7) measurements and trends
-		- X-ray flux monitoring with NOAA alert levels
-		- Aurora forecast predictions
-		- HF band propagation conditions
-		- D-RAP absorption maps
-		- SDO solar imagery (multiple wavelengths)
-		- Weather satellite image gallery
+		Stay ahead of space weather. The Space Weather Dashboard brings real-time
+		NOAA, NASA, and HamQSL data directly into your Nextcloud — no external
+		websites, no extra logins, no clutter.
 
-		Data sources:
-		- NOAA Space Weather Prediction Center (SWPC)
-		- NASA Solar Dynamics Observatory (SDO)
-		- HamQSL propagation data
+		Track geomagnetic storms with the KP Index, monitor solar flare activity
+		via X-ray flux levels, and check F10.7 solar flux measurements at a glance.
+		See live aurora forecast maps, HF band propagation conditions for radio
+		operators, and D-RAP absorption maps — all updated every few minutes.
+
+		Browse solar imagery across six SDO wavelengths (193Å through magnetogram),
+		view full-disk weather satellite images from GOES-16 and GOES-18, and keep
+		tabs on sunspot counts and K-index readings.
+
+		Built for ham radio operators, aurora chasers, and anyone who wants the
+		Sun's activity on their dashboard. No JavaScript build step, no frameworks,
+		and full support for Nextcloud dark and light themes.
 	</description>
 	<version>1.0.0</version>
 	<licence>AGPL-3.0-or-later</licence>
