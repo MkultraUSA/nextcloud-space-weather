@@ -22,7 +22,7 @@ use Psr\Log\LoggerInterface;
  * Handles HTTP requests to fetch space weather data via REST API endpoints
  * All endpoints support manual refresh via query parameters
  */
-class APIController extends Controller {
+class ApiController extends Controller {
 	public function __construct(
 		string $appName,
 		IRequest $request,
