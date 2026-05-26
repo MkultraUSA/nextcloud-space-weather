@@ -1,6 +1,14 @@
 <?php
 /** @var array $_ */
-?>
+?><style>
+.space-weather-admin-settings {
+	padding-left: 24px;
+}
+.space-weather-admin-settings h3 {
+	margin-top: 20px;
+	margin-bottom: 8px;
+}
+</style>
 <div class="space-weather-admin-settings">
 	<h3>Data Sources</h3>
 	<p>The Space Weather Dashboard aggregates data from these sources:</p>
