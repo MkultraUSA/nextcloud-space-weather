@@ -983,7 +983,6 @@
     transform: translateY(0);
 }
 
-.space-weather-app .settings-section {
     border-radius: var(--border-radius);
     padding: 20px;
     margin-bottom: 20px;
@@ -999,7 +998,6 @@
     margin-top: 0;
 }
 
-.space-weather-app .data-source-card code {
     padding: 2px 6px;
     border-radius: 4px;
     font-size: 0.9em;
@@ -1012,17 +1010,6 @@
 }
 
 .space-weather-app .info-item {
-    border-radius: 6px;
-    padding: 12px;
-}
-
-.space-weather-app .info-item strong {
-    margin-right: 6px;
-}
-
-.space-weather-app .settings-footer {
-    text-align: center;
-    padding: 20px;
     font-size: 0.9em;
 }
 
@@ -1043,17 +1030,12 @@
     width: 100%;
     max-width: 600px;
     padding: 10px 12px;
-    border-radius: 6px;
     font-size: 1em;
 }
 
 .space-weather-app .form-group input:focus,
 .space-weather-app .form-group textarea:focus,
 .space-weather-app .form-group select:focus {
-    outline: none;
-}
-
-.space-weather-app .primary-button {
     padding: 10px 24px;
     border-radius: 6px;
     font-size: 1em;
