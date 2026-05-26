@@ -83,8 +83,50 @@
             <div id="form-response" class="form-response" style="display: none;"></div>
         </div>
         
-        <div class="settings-footer">
-            <p>&copy; <?php echo date('Y'); ?> <?php p($_['app_info']['author']); ?>. All rights reserved.</p>
+        <div class="settings-section">
+            <h2>Credits &amp; Attribution</h2>
+    
+            <p>This application would not be possible without the following organizations and their open data:</p>
+    
+            <div class="info-grid">
+                <div class="info-item">
+                    <strong><a href="https://www.swpc.noaa.gov/" target="_blank" rel="noopener noreferrer">NOAA Space Weather Prediction Center</a></strong>
+                    <p>Provides real-time KP index, solar flux, X-ray flux, aurora forecasts, and D-RAP absorption data through their public API.</p>
+                </div>
+        
+                <div class="info-item">
+                    <strong><a href="https://sdo.gsfc.nasa.gov/" target="_blank" rel="noopener noreferrer">NASA Solar Dynamics Observatory</a></strong>
+                    <p>Provides continuous solar imagery in multiple wavelengths, helping us monitor solar activity in real-time.</p>
+                </div>
+        
+                <div class="info-item">
+                    <strong><a href="https://www.hamqsl.com/" target="_blank" rel="noopener noreferrer">HamQSL.com</a></strong>
+                    <p>Provides HF band propagation conditions essential for amateur radio operators and shortwave listeners.</p>
+                </div>
+        
+                <div class="info-item">
+                    <strong><a href="https://www.star.nesdis.noaa.gov/GOES/" target="_blank" rel="noopener noreferrer">GOES Satellite Program</a></strong>
+                    <p>NOAA's Geostationary Operational Environmental Satellites provide weather satellite imagery.</p>
+                </div>
+            </div>
+    
+            <h3>Technology</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <strong>Nextcloud</strong>
+                    <p>Built for the Nextcloud ecosystem. This app follows Nextcloud development best practices and is designed to integrate seamlessly with your Nextcloud instance.</p>
+                </div>
+        
+                <div class="info-item">
+                    <strong>Development</strong>
+                    <p>Developed by Kevin Watkins using PHP 8.0+, vanilla JavaScript, and the Nextcloud App Framework. Open source under AGPL-3.0-or-later.</p>
+                </div>
+            </div>
+    
+            <div class="credits-footer">
+                <p>Special thanks to the open-source community and the Nextcloud development team for their continued support and documentation.</p>
+                <p>Space Weather Dashboard v<?php p($_['app_info']['version']); ?> &mdash; &copy; <?php echo date('Y'); ?> Kevin Watkins</p>
+            </div>
         </div>
     </div>
 </div>
