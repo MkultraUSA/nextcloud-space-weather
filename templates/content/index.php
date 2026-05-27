@@ -31,12 +31,13 @@ style('space_weather', 'style');
             </div>
             <?php if (!empty($_['enlilFrames']) && $_['enlilFrameCount'] > 1): ?>
             <?php
-                $enlilFrameBase = rtrim(\OCP\Server::get(\OCP\IURLGenerator::class)->linkToRoute('space_weather.image.enlil_frame', ['index' => 0]), '0');
+                $enlilFrameUrl0 = \OCP\Server::get(\OCP\IURLGenerator::class)->linkToRoute('space_weather.image.get_enlil_frame', ['index' => 0]);
+                $enlilFrameBase = substr($enlilFrameUrl0, 0, -1);
             ?>
             <div class="enlil-animation-container">
                 <div class="enlil-animation-player" id="enlil-player">
                     <img id="enlil-anim-img"
-                         src="<?php print_unescaped(\OCP\Server::get(\OCP\IURLGenerator::class)->linkToRoute('space_weather.image.enlil_frame', ['index' => 0])); ?>"
+                         src="<?php print_unescaped($enlilFrameUrl0); ?>"
                          alt="WSA-ENLIL Solar Wind Animation"
                          class="enlil-anim-image"
                          data-frame-count="<?php p($_['enlilFrameCount']); ?>"
