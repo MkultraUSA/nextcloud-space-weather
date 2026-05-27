@@ -1033,6 +1033,12 @@
     font-size: 1em;
 }
 
+.space-weather-app .settings-hint {
+    margin-top: 8px;
+    font-size: 0.85em;
+    color: var(--color-text-maxcontrast, #999);
+}
+
 .space-weather-app .form-group input:focus,
 .space-weather-app .form-group textarea:focus,
 .space-weather-app .form-group select:focus {
