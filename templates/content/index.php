@@ -31,7 +31,7 @@ style('space_weather', 'style');
             </div>
             <?php if (!empty($_['enlilFrames']) && $_['enlilFrameCount'] > 1): ?>
             <?php
-                $enlilFrameUrl0 = \OCP\Server::get(\OCP\IURLGenerator::class)->linkToRoute('space_weather.image.get_enlil_frame', ['index' => 0]);
+                $enlilFrameUrl0 = \OCP\Server::get(\OCP\IURLGenerator::class)->linkToRoute('space_weather.image.getenlilframe', ['index' => 0]);
                 $enlilFrameBase = substr($enlilFrameUrl0, 0, -1);
             ?>
             <div class="enlil-animation-container">
