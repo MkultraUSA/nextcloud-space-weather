@@ -8,6 +8,12 @@
 	margin-top: 20px;
 	margin-bottom: 8px;
 }
+.space-weather-admin-settings .settings-hint {
+	margin-block-start: 8px;
+	margin-block-end: 12px;
+	font-size: 0.85em;
+	color: var(--color-text-maxcontrast, #999);
+}
 </style>
 <div class="space-weather-admin-settings">
 	<h3>Data Sources</h3>
