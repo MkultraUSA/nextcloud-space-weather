@@ -29,15 +29,37 @@ style('space_weather', 'style');
                 <p>Shown below is the latest forecast of conditions in the solar wind, as predicted by the WSA-Enlil model. The solar wind is a fast-moving stream of charged particles emanating from the Sun and moving outwards towards the Earth and planets. During &ldquo;fair-weather&rdquo; conditions the solar wind still contains significant variations in density and speed which originate at the solar surface and are imparted with a spiral appearance due to the Sun&rsquo;s roughly 27 day rotation.</p>
                 <p>At irregular intervals the &ldquo;fair-weather&rdquo; is interrupted by major solar eruptions known as Coronal Mass Ejections (CMEs) which are propelled outwards into the background wind. Variations in the plasma density and speed within these solar storms can be much more dramatic than during quiet conditions. For both &ldquo;fair-weather&rdquo; and &ldquo;storm&rdquo; conditions, predicting the arrival at Earth of variations in the solar wind is important because these can lead to geomagnetic storms.</p>
             </div>
-            <div class="image-container">
-                <a href="<?php print_unescaped(\OCP\Server::get(\OCP\IURLGenerator::class)->linkToRoute('space_weather.image.getimage', ['key' => 'enlil'])); ?>" class="sw-image-link"><img src="<?php print_unescaped(\OCP\Server::get(\OCP\IURLGenerator::class)->linkToRoute('space_weather.image.getimage', ['key' => 'enlil'])); ?>"
-                     alt="WSA-ENLIL Solar Wind Prediction" class="enlil-image" loading="lazy">
-                <div class="image-loading">
-                    <div class="loading-spinner"></div>
-                    <span>Loading Enlil image...</span>
+            <?php if (!empty($_['enlilFrames']) && $_['enlilFrameCount'] > 1): ?>
+            <?php
+                $enlilFrameBase = rtrim(\OCP\Server::get(\OCP\IURLGenerator::class)->linkToRoute('space_weather.image.enlil_frame', ['index' => 0]), '0');
+            ?>
+            <div class="enlil-animation-container">
+                <div class="enlil-animation-player" id="enlil-player">
+                    <img id="enlil-anim-img"
+                         src="<?php print_unescaped(\OCP\Server::get(\OCP\IURLGenerator::class)->linkToRoute('space_weather.image.enlil_frame', ['index' => 0])); ?>"
+                         alt="WSA-ENLIL Solar Wind Animation"
+                         class="enlil-anim-image"
+                         data-frame-count="<?php p($_['enlilFrameCount']); ?>"
+                         data-frame-base="<?php print_unescaped($enlilFrameBase); ?>"
+                         loading="lazy">
+                    <div class="enlil-anim-controls">
+                        <button id="enlil-anim-play" class="enlil-anim-btn" title="Play/Pause">&#9654;</button>
+                        <span id="enlil-anim-info" class="enlil-anim-info">Frame 1 / <?php p($_['enlilFrameCount']); ?></span>
+                    </div>
                 </div>
-                <div class="image-error" style="display:none;">
-                    <span>Failed to load Enlil image</span>
+            </div>
+            <?php endif; ?>
+            <div class="enlil-static-container">
+                <div class="image-container">
+                    <a href="<?php print_unescaped(\OCP\Server::get(\OCP\IURLGenerator::class)->linkToRoute('space_weather.image.getimage', ['key' => 'enlil'])); ?>" class="sw-image-link"><img src="<?php print_unescaped(\OCP\Server::get(\OCP\IURLGenerator::class)->linkToRoute('space_weather.image.getimage', ['key' => 'enlil'])); ?>"
+                         alt="WSA-ENLIL Solar Wind Prediction" class="enlil-image" loading="lazy">
+                    <div class="image-loading">
+                        <div class="loading-spinner"></div>
+                        <span>Loading Enlil image...</span>
+                    </div>
+                    <div class="image-error" style="display:none;">
+                        <span>Failed to load Enlil image</span>
+                    </div>
                 </div>
             </div>
             <p class="forecast-placeholder" style="display:none">Enlil image temporarily unavailable</p>

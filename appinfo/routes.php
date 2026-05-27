@@ -23,5 +23,6 @@ return [
 
         // Image proxy route
         ['name' => 'image#getImage', 'url' => '/api/v1/image/{key}', 'verb' => 'GET'],
+        ['name' => 'image#getEnlilFrame', 'url' => '/api/v1/image/enlil-frame/{index}', 'verb' => 'GET'],
     ],
 ];

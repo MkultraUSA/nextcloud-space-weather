@@ -375,6 +375,83 @@
 }
 
 /* ===========================
+   Enlil Animation Player
+   =========================== */
+
+.space-weather-app .enlil-animation-container{
+    background: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+.space-weather-app .enlil-animation-player{
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
+.space-weather-app .enlil-anim-image{
+    width: 100%;
+    height: auto;
+    max-height: 600px;
+    object-fit: contain;
+    display: block;
+}
+
+.space-weather-app .enlil-anim-controls{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: calc(var(--spacing-unit) * 2);
+    padding: calc(var(--spacing-unit) * 1.5);
+    background: rgba(0,0,0,0.05);
+    border-top: 1px solid var(--color-border, #eee);
+}
+
+.space-weather-app .enlil-anim-btn{
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+.space-weather-app .enlil-anim-btn:hover{
+    transform: scale(1.1);
+    box-shadow: var(--shadow-sm);
+}
+
+.space-weather-app .enlil-anim-info{
+    font-size: 13px;
+    color: var(--color-text-secondary, #666);
+    font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+}
+
+.space-weather-app .enlil-static-container{
+    background: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===========================
    D-RAP Maps Container
    =========================== */
 
@@ -1073,6 +1150,12 @@
         color: #e0e0e0;
     }
 
+    .space-weather-app .enlil-animation-container,
+    .space-weather-app .enlil-static-container{
+        background: #3a3a5c;
+        color: #e0e0e0;
+    }
+
     .space-weather-app .sidebar-section{
         background: #3a3a5c;
         color: #e0e0e0;
@@ -1083,7 +1166,16 @@
         border-bottom-color: rgba(102, 126, 234, 0.5);
     }
 
-	.space-weather-app .dashboard-section h2{
+    .space-weather-app .enlil-anim-controls{
+        background: rgba(255,255,255,0.08);
+        border-top-color: rgba(255,255,255,0.1);
+    }
+
+    .space-weather-app .enlil-anim-info{
+        color: #b3d9ff;
+    }
+
+    .space-weather-app .dashboard-section h2{
 		color: #e0e0e0;
 	}
 

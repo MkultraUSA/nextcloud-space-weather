@@ -192,10 +192,47 @@ class SpaceWeatherService {
 		}
 	}
 
-	/**
-	 * Get human-readable KP status.
-	 */
-	private function getKpStatus(float $kp): string {
+    /**
+     * Fetch WSA-Enlil animation frame manifest from spaceweatherlive.com
+     * Updated JSON providing hourly animated frames of the solar wind prediction.
+     *
+     * @return array<string, mixed>
+     */
+    public function getEnlilAnimationFrames(): array {
+        $cacheKey = CacheService::getCacheKey('enlil_frames');
+        $cached = $this->cacheService->getDaily($cacheKey);
+
+        if ($cached !== null) {
+            return json_decode($cached, true) ?? [];
+        }
+
+        try {
+            $client = $this->clientService->newClient();
+            $response = $client->get('https://www.spaceweatherlive.com/images/wsa-enlil.json', [
+                'timeout' => 10,
+            ]);
+            $data = json_decode($response->getBody(), true);
+
+            $frames = $data['frames'] ?? [];
+            $result = [
+                'frames' => $frames,
+                'poster' => $frames[0] ?? '',
+                'count'  => count($frames),
+                'timestamp' => date('c'),
+            ];
+
+            $this->cacheService->setDaily($cacheKey, json_encode($result));
+            return $result;
+        } catch (\Exception $e) {
+            $this->logger->error('Failed to fetch Enlil animation frames: ' . $e->getMessage());
+            return ['error' => true, 'frames' => [], 'count' => 0];
+        }
+    }
+
+    /**
+     * Get human-readable KP status.
+     */
+    private function getKpStatus(float $kp): string {
 		if ($kp < 2) {
 			return 'quiet';
 		}

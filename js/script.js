@@ -150,4 +150,56 @@ document.addEventListener('DOMContentLoaded', function () {
 			target = target.parentNode;
 		}
 	});
+
+	// --- WSA-ENLIL Animation ---
+	var animImg = document.getElementById('enlil-anim-img');
+	if (animImg) {
+		var frameCount = parseInt(animImg.getAttribute('data-frame-count')) || 0;
+		var frameBase = animImg.getAttribute('data-frame-base') || '';
+		var currentFrame = 0;
+		var playing = false;
+		var timer = null;
+		var FRAME_MS = 200;
+
+		var infoEl = document.getElementById('enlil-anim-info');
+		var playBtn = document.getElementById('enlil-anim-play');
+
+		function showFrame(idx) {
+			if (idx >= frameCount) idx = 0;
+			if (idx < 0) idx = frameCount - 1;
+			currentFrame = idx;
+			animImg.src = frameBase + idx;
+			if (infoEl) {
+				infoEl.textContent = 'Frame ' + (idx + 1) + ' / ' + frameCount;
+			}
+		}
+
+		function startAnim() {
+			if (playing) return;
+			playing = true;
+			if (playBtn) playBtn.innerHTML = '&#10074;&#10074;';
+			timer = setInterval(function () {
+				showFrame(currentFrame + 1);
+			}, FRAME_MS);
+		}
+
+		function stopAnim() {
+			playing = false;
+			if (timer) {
+				clearInterval(timer);
+				timer = null;
+			}
+			if (playBtn) playBtn.innerHTML = '&#9654;';
+		}
+
+		if (playBtn) {
+			playBtn.addEventListener('click', function () {
+				if (playing) {
+					stopAnim();
+				} else {
+					startAnim();
+				}
+			});
+		}
+	}
 });

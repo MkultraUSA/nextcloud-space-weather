@@ -108,6 +108,20 @@ class PageController extends Controller {
             $data['bandError'] = true;
             $data['hasError'] = true;
         }
+
+        // WSA-Enlil Animation Frames
+        try {
+            $enlilAnim = $this->weatherService->getEnlilAnimationFrames();
+            $data['enlilFrames'] = $enlilAnim['frames'] ?? [];
+            $data['enlilFrameCount'] = $enlilAnim['count'] ?? 0;
+            $data['enlilFramesError'] = !empty($enlilAnim['error']);
+        } catch (\Exception $e) {
+            $this->logger->error('Enlil animation frames failed: ' . $e->getMessage());
+            $data['enlilFrames'] = [];
+            $data['enlilFrameCount'] = 0;
+            $data['enlilFramesError'] = true;
+        }
+
         $data['lastUpdate'] = date('H:i');
         return new TemplateResponse(
             $this->appName,

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace OCA\SpaceWeather\Controller;
 
+use OCA\SpaceWeather\Service\SpaceWeatherService;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\DataDownloadResponse;
 use OCP\AppFramework\Http\DataResponse;
@@ -44,11 +45,12 @@ class ImageController extends Controller {
 
 	];
 
-	public function __construct(
-		string $appName,
-		IRequest $request,
-		protected LoggerInterface $logger,
-	) {
+    public function __construct(
+        string $appName,
+        IRequest $request,
+        protected LoggerInterface $logger,
+        private SpaceWeatherService $weatherService,
+    ) {
 		parent::__construct($appName, $request);
 	}
 
@@ -166,6 +168,56 @@ class ImageController extends Controller {
             return $dirUrl . $files[0];
         } catch (\Throwable $e) {
             return "https://services.swpc.noaa.gov/images/animations/enlil/latest.jpg";
+        }
+    }
+
+    /**
+     * Proxy a specific WSA-Enlil animation frame through same-origin.
+     *
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @PublicPage
+     */
+    public function getEnlilFrame(int $index): DataDownloadResponse|DataResponse {
+        try {
+            $manifest = $this->weatherService->getEnlilAnimationFrames();
+            $frames = $manifest['frames'] ?? [];
+
+            if (empty($frames) || $index < 0 || $index >= count($frames)) {
+                return new DataResponse(['error' => 'Frame index out of range'], 404);
+            }
+
+            $url = $frames[$index];
+            $opts = [
+                'http' => [
+                    'timeout'    => 15,
+                    'user_agent' => 'Nextcloud-SpaceWeather/1.0',
+                    'follow_location' => 1,
+                    'max_redirects'   => 3,
+                ],
+                'ssl' => [
+                    'verify_peer'      => false,
+                    'verify_peer_name' => false,
+                ],
+            ];
+            $context = stream_context_create($opts);
+            $body = @file_get_contents($url, false, $context);
+
+            if ($body === false || $body === '') {
+                return new DataResponse(['error' => 'Failed to fetch frame from source'], 502);
+            }
+
+            $contentType = $this->detectMimeType($body);
+            $ext = ($contentType === 'image/png') ? 'png' : 'jpg';
+            $resp = new DataDownloadResponse($body, "enlil_frame_{$index}.{$ext}", $contentType);
+            $resp->addHeader('Content-Disposition', 'inline; filename="enlil_frame_' . $index . '.' . $ext . '"');
+            $resp->addHeader('Cache-Control', 'public, max-age=300');
+            $resp->addHeader('Pragma', 'public');
+
+            return $resp;
+        } catch (\Throwable $e) {
+            $this->logger->error('Enlil frame proxy error: ' . $e->getMessage());
+            return new DataResponse(['error' => 'Failed to fetch frame'], 502);
         }
     }
 
