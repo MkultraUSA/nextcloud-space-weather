@@ -19,6 +19,8 @@ style('space_weather', 'style');
 
     <div class="dashboard-container">
 
+        <div class="dashboard-main">
+
         <div class="dashboard-section">
             <h2>Solar Wind Prediction (WSA-ENLIL)
                 <span class="loading-spinner" id="enlil-loading" style="display:none;"></span>
@@ -248,5 +250,17 @@ style('space_weather', 'style');
                 <?php endforeach; ?>
             </div>
         </div>
-</div>
-</div>
+
+        </div>  <!-- dashboard-main -->
+
+        <div class="dashboard-sidebar">
+            <div class="sidebar-section">
+                <h3>Right Panel</h3>
+                <div class="sidebar-content">
+                    <p>This space is reserved for additional data panels. Content coming soon.</p>
+                </div>
+            </div>
+        </div>
+
+</div>  <!-- dashboard-container -->
+</div>  <!-- app -->

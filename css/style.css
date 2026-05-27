@@ -158,10 +158,51 @@
    =========================== */
 
 .space-weather-app .dashboard-container{
-	max-width: 1400px;
-	margin: 0 auto;
-	display: grid;
-	gap: calc(var(--spacing-unit) * 3);
+    max-width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: calc(var(--spacing-unit) * 3);
+    align-items: start;
+}
+
+.space-weather-app .dashboard-main{
+    min-width: 0;
+}
+
+.space-weather-app .dashboard-sidebar{
+    position: sticky;
+    top: calc(var(--spacing-unit) * 2);
+}
+
+.space-weather-app .sidebar-section{
+    background: white;
+    border-radius: var(--border-radius);
+    padding: calc(var(--spacing-unit) * 2);
+    box-shadow: var(--shadow-sm);
+}
+
+.space-weather-app .sidebar-section h3{
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0 0 calc(var(--spacing-unit) * 1.5);
+    padding-bottom: calc(var(--spacing-unit) * 1);
+    border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+}
+
+.space-weather-app .sidebar-content{
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+}
+
+.space-weather-app .sidebar-content p{
+    margin: 0 0 calc(var(--spacing-unit) * 1);
+}
+
+.space-weather-app .sidebar-content p:last-child{
+    margin-bottom: 0;
 }
 
 .space-weather-app .dashboard-section{
@@ -445,16 +486,24 @@
    =========================== */
 
 @media (max-width: 1024px) {
-	.space-weather-app .app-header {
-		flex-direction: column;
-		align-items: flex-start;
-	}
+    .space-weather-app .app-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-	.space-weather-app .app-header h1 {
-		font-size: 28px;
-	}
+    .space-weather-app .app-header h1 {
+        font-size: 28px;
+    }
 
-	.space-weather-app .cards-grid{
+    .space-weather-app .dashboard-container{
+        grid-template-columns: 1fr;
+    }
+
+    .space-weather-app .dashboard-sidebar{
+        position: static;
+    }
+
+    .space-weather-app .cards-grid{
 		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 		gap: calc(var(--spacing-unit) * 2);
 	}
@@ -911,17 +960,27 @@
 }
 
 @media (prefers-color-scheme: dark) {
-	
+    
 
-	.space-weather-app .dashboard-container,
-	.space-weather-app .cards-grid,
-	.space-weather-app .forecast-container,
-	.space-weather-app .placeholder,
-	.space-weather-app .drap-maps-container,
-	.space-weather-app .sdo-gallery{
-		background: #2c2c54;
-		color: #e0e0e0;
-	}
+    .space-weather-app .dashboard-container,
+    .space-weather-app .cards-grid,
+    .space-weather-app .forecast-container,
+    .space-weather-app .placeholder,
+    .space-weather-app .drap-maps-container,
+    .space-weather-app .sdo-gallery{
+        background: #2c2c54;
+        color: #e0e0e0;
+    }
+
+    .space-weather-app .sidebar-section{
+        background: #3a3a5c;
+        color: #e0e0e0;
+    }
+
+    .space-weather-app .dashboard-sidebar .sidebar-section h3{
+        color: #e0e0e0;
+        border-bottom-color: rgba(102, 126, 234, 0.5);
+    }
 
 	.space-weather-app .dashboard-section h2{
 		color: #e0e0e0;
