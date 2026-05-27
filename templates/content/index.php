@@ -255,9 +255,31 @@ style('space_weather', 'style');
 
         <div class="dashboard-sidebar">
             <div class="sidebar-section">
-                <h3>Right Panel</h3>
-                <div class="sidebar-content">
-                    <p>This space is reserved for additional data panels. Content coming soon.</p>
+                <h3>Space Weather Facts</h3>
+                <table class="fact-table">
+                    <tr>
+                        <td class="fact-label">KP Index</td>
+                        <td class="fact-value"><?php p(number_format($_['kpIndex'] ?? 0, 1)); ?></td>
+                        <td class="fact-status fact-<?php p($_['kpStatus'] ?? 'unknown'); ?>"><?php p(str_replace('_', ' ', $_['kpStatus'] ?? 'Unknown')); ?></td>
+                    </tr>
+                    <tr>
+                        <td class="fact-label">Solar Flux</td>
+                        <td class="fact-value"><?php p(($_['solarFlux'] ?? 0) . ' sfu'); ?></td>
+                        <td class="fact-status fact-<?php p($_['fluxStatus'] ?? 'low'); ?>"><?php p($_['fluxStatus'] ?? 'low'); ?></td>
+                    </tr>
+                    <tr>
+                        <td class="fact-label">X-Ray Flux</td>
+                        <td class="fact-value"><?php p($_['xrayClass'] ?? '--'); ?></td>
+                        <td class="fact-status fact-<?php p($_['xrayAlert'] ?? 'quiet'); ?>"><?php p(str_replace('_', ' ', $_['xrayAlert'] ?? 'Quiet')); ?></td>
+                    </tr>
+                    <tr>
+                        <td class="fact-label">Sunspots</td>
+                        <td class="fact-value"><?php p($_['bandConditions']['sunspot_number'] ?? '--'); ?></td>
+                        <td class="fact-empty"></td>
+                    </tr>
+                </table>
+                <div class="fact-footer">
+                    Updated: <?php p($_['lastUpdate'] ?? '--:--'); ?> UTC
                 </div>
             </div>
         </div>

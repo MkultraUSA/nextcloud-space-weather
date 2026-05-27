@@ -205,6 +205,107 @@
     margin-bottom: 0;
 }
 
+/* ===========================
+   Sidebar Fact Table
+   =========================== */
+
+.space-weather-app .fact-table{
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.space-weather-app .fact-table tr{
+    border-bottom: 1px solid var(--color-border, #eee);
+}
+
+.space-weather-app .fact-table tr:last-child{
+    border-bottom: none;
+}
+
+.space-weather-app .fact-table td{
+    padding: 6px 4px;
+    vertical-align: middle;
+}
+
+.space-weather-app .fact-label{
+    color: var(--color-text-secondary, #666);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    width: 35%;
+}
+
+.space-weather-app .fact-value{
+    font-weight: 700;
+    font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+    color: var(--color-text-primary, #333);
+    text-align: right;
+    width: 30%;
+    padding-right: 8px !important;
+}
+
+.space-weather-app .fact-status{
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 10px;
+    padding: 2px 8px !important;
+    width: 35%;
+}
+
+.space-weather-app .fact-empty{
+    width: 35%;
+}
+
+.space-weather-app .fact-quiet,
+.space-weather-app .fact-low,
+.space-weather-app .fact-normal{
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.space-weather-app .fact-unsettled,
+.space-weather-app .fact-moderate,
+.space-weather-app .fact-a_class{
+    background: #fff8e1;
+    color: #f57f17;
+}
+
+.space-weather-app .fact-active,
+.space-weather-app .fact-b_class{
+    background: #fff3e0;
+    color: #e65100;
+}
+
+.space-weather-app .fact-c_class{
+    background: #fff3e0;
+    color: #e65100;
+}
+
+.space-weather-app .fact-minor_storm,
+.space-weather-app .fact-m_class{
+    background: #ffebee;
+    color: #b71c1c;
+}
+
+.space-weather-app .fact-major_storm,
+.space-weather-app .fact-severe_storm,
+.space-weather-app .fact-x_class{
+    background: #ff1744;
+    color: white;
+}
+
+.space-weather-app .fact-footer{
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--color-border, #eee);
+    font-size: 11px;
+    color: var(--color-text-tertiary, #999);
+    text-align: center;
+}
+
 .space-weather-app .dashboard-section{
 	animation: fadeIn 0.5s ease;
 }
