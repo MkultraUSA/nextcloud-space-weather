@@ -278,28 +278,32 @@ style('space_weather', 'style');
                 <h3>Space Weather Facts</h3>
                 <table class="fact-table">
                     <tr>
+                        <td class="fact-icon">⚡</td>
                         <td class="fact-label">KP Index</td>
                         <td class="fact-value"><?php p(number_format($_['kpIndex'] ?? 0, 1)); ?></td>
                         <td class="fact-status fact-<?php p($_['kpStatus'] ?? 'unknown'); ?>"><?php p(str_replace('_', ' ', $_['kpStatus'] ?? 'Unknown')); ?></td>
                     </tr>
                     <tr>
+                        <td class="fact-icon">🌞</td>
                         <td class="fact-label">Solar Flux</td>
                         <td class="fact-value"><?php p(($_['solarFlux'] ?? 0) . ' sfu'); ?></td>
                         <td class="fact-status fact-<?php p($_['fluxStatus'] ?? 'low'); ?>"><?php p($_['fluxStatus'] ?? 'low'); ?></td>
                     </tr>
                     <tr>
+                        <td class="fact-icon">☢</td>
                         <td class="fact-label">X-Ray Flux</td>
                         <td class="fact-value"><?php p($_['xrayClass'] ?? '--'); ?></td>
                         <td class="fact-status fact-<?php p($_['xrayAlert'] ?? 'quiet'); ?>"><?php p(str_replace('_', ' ', $_['xrayAlert'] ?? 'Quiet')); ?></td>
                     </tr>
                     <tr>
+                        <td class="fact-icon">⊙</td>
                         <td class="fact-label">Sunspots</td>
                         <td class="fact-value"><?php p($_['bandConditions']['sunspot_number'] ?? '--'); ?></td>
                         <td class="fact-empty"></td>
                     </tr>
                 </table>
                 <div class="fact-footer">
-                    Updated: <?php p($_['lastUpdate'] ?? '--:--'); ?> UTC
+                    <span class="fact-footer-icon">⏰</span> Updated: <span class="fact-footer-time"><?php p($_['lastUpdate'] ?? '--:--'); ?> UTC</span>
                 </div>
             </div>
         </div>

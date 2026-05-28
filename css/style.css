@@ -158,28 +158,33 @@
    =========================== */
 
 .space-weather-app .dashboard-container{
-    max-width: 100%;
+    max-width: 1400px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 300px;
+    grid-template-columns: 1fr minmax(280px, 380px);
     gap: calc(var(--spacing-unit) * 3);
     align-items: start;
 }
 
 .space-weather-app .dashboard-main{
     min-width: 0;
+    max-width: 100%;
 }
 
 .space-weather-app .dashboard-sidebar{
     position: sticky;
     top: calc(var(--spacing-unit) * 2);
+    z-index: 10;
+    align-self: start;
 }
 
 .space-weather-app .sidebar-section{
     background: white;
     border-radius: var(--border-radius);
-    padding: calc(var(--spacing-unit) * 2);
-    box-shadow: var(--shadow-sm);
+    padding: calc(var(--spacing-unit) * 2.5);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: box-shadow 0.3s ease;
 }
 
 .space-weather-app .sidebar-section h3{
@@ -189,6 +194,9 @@
     margin: 0 0 calc(var(--spacing-unit) * 1.5);
     padding-bottom: calc(var(--spacing-unit) * 1);
     border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .space-weather-app .sidebar-content{
@@ -217,6 +225,15 @@
 
 .space-weather-app .fact-table tr{
     border-bottom: 1px solid var(--color-border, #eee);
+    transition: background 0.2s ease;
+}
+
+.space-weather-app .fact-table tr:nth-child(even){
+    background: rgba(102, 126, 234, 0.04);
+}
+
+.space-weather-app .fact-table tr:hover{
+    background: rgba(102, 126, 234, 0.08);
 }
 
 .space-weather-app .fact-table tr:last-child{
@@ -224,8 +241,15 @@
 }
 
 .space-weather-app .fact-table td{
-    padding: 6px 4px;
+    padding: 8px 6px;
     vertical-align: middle;
+}
+
+.space-weather-app .fact-icon{
+    font-size: 16px;
+    text-align: center;
+    width: 28px;
+    padding: 6px 4px !important;
 }
 
 .space-weather-app .fact-label{
@@ -234,15 +258,16 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     white-space: nowrap;
-    width: 35%;
+    width: auto;
 }
 
 .space-weather-app .fact-value{
     font-weight: 700;
+    font-size: 14px;
     font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
     color: var(--color-text-primary, #333);
     text-align: right;
-    width: 30%;
+    width: auto;
     padding-right: 8px !important;
 }
 
@@ -252,7 +277,7 @@
     text-align: center;
     border-radius: 10px;
     padding: 2px 8px !important;
-    width: 35%;
+    width: auto;
 }
 
 .space-weather-app .fact-empty{
@@ -298,12 +323,26 @@
 }
 
 .space-weather-app .fact-footer{
-    margin-top: 10px;
-    padding-top: 8px;
+    margin-top: 12px;
+    padding-top: 10px;
     border-top: 1px solid var(--color-border, #eee);
     font-size: 11px;
     color: var(--color-text-tertiary, #999);
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.space-weather-app .fact-footer-icon{
+    font-size: 14px;
+}
+
+.space-weather-app .fact-footer-time{
+    font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+    color: #667eea;
+    font-weight: 600;
 }
 
 .space-weather-app .dashboard-section{
@@ -782,11 +821,11 @@
     }
 
     .space-weather-app .dashboard-container{
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr minmax(240px, 300px);
     }
 
     .space-weather-app .dashboard-sidebar{
-        position: static;
+        position: sticky;
     }
 
     .space-weather-app .cards-grid{
@@ -883,6 +922,52 @@
 		padding: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 1.5);
 	}
 }
+    /* Mobile facts: card layout */
+    .space-weather-app .fact-table,
+    .space-weather-app .fact-table tbody,
+    .space-weather-app .fact-table tr,
+    .space-weather-app .fact-table td{
+        display: block;
+    }
+
+    .space-weather-app .fact-table tr{
+        background: var(--color-background-dark, #f8f9fa);
+        border-radius: 6px;
+        margin-bottom: 8px;
+        padding: 10px;
+        border: 1px solid var(--color-border, #eee);
+    }
+
+    .space-weather-app .fact-table tr:nth-child(even){
+        background: var(--color-background-dark, #f8f9fa);
+    }
+
+    .space-weather-app .fact-icon{
+        display: inline-block;
+        width: auto;
+        padding: 2px 6px !important;
+        font-size: 18px;
+    }
+
+    .space-weather-app .fact-label{
+        display: inline-block;
+        width: auto;
+        margin-right: 8px;
+    }
+
+    .space-weather-app .fact-value{
+        display: inline-block;
+        width: auto;
+        text-align: left;
+        padding-right: 0 !important;
+        margin-right: 12px;
+    }
+
+    .space-weather-app .fact-status{
+        display: inline-block;
+        width: auto;
+    }
+
 
 /* ===========================
    Responsive Design - Small Mobile
@@ -1295,6 +1380,26 @@
 	.space-weather-app .wavelength-card{
 		background: #3a3a5c;
 	}
+    .space-weather-app .fact-table tr:nth-child(even){
+        background: rgba(255,255,255,0.04);
+    }
+
+    .space-weather-app .fact-table tr:hover{
+        background: rgba(255,255,255,0.08);
+    }
+
+    .space-weather-app .fact-label{
+        color: #b0b0c0;
+    }
+
+    .space-weather-app .fact-value{
+        color: #e0e0e0;
+    }
+
+    .space-weather-app .fact-footer-time{
+        color: #b3d9ff;
+    }
+
 }
 
 /* ============================
