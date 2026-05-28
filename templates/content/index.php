@@ -43,10 +43,7 @@ style('space_weather', 'style');
                          data-frame-count="<?php p($_['enlilFrameCount']); ?>"
                          data-frame-base="<?php print_unescaped($enlilFrameBase); ?>"
                          loading="lazy">
-                    <div class="enlil-anim-controls">
-                        <button id="enlil-anim-play" class="enlil-anim-btn" title="Play/Pause">&#9654;</button>
-                        <span id="enlil-anim-info" class="enlil-anim-info">Frame 1 / <?php p($_['enlilFrameCount']); ?></span>
-                    </div>
+                    <div class="enlil-anim-controls" id="enlil-anim-controls"></div>
                 </div>
             </div>
             <?php endif; ?>

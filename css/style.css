@@ -404,16 +404,90 @@
     display: block;
 }
 
-.space-weather-app .enlil-anim-controls{
+/* Loading overlay for frame transitions */
+.space-weather-app .enlil-anim-loading-overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.6);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: calc(var(--spacing-unit) * 2);
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* Scrub / progress bar */
+.space-weather-app .enlil-anim-scrub{
+    width: 100%;
+    height: 6px;
+    margin: 0;
+    padding: 0;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #e0e0e0;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+    display: block;
+}
+
+.space-weather-app .enlil-anim-scrub::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #667eea;
+    border: 2px solid #fff;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: transform var(--transition-speed) ease;
+}
+
+.space-weather-app .enlil-anim-scrub::-webkit-slider-thumb:hover{
+    transform: scale(1.25);
+}
+
+.space-weather-app .enlil-anim-scrub::-moz-range-thumb{
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #667eea;
+    border: 2px solid #fff;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+}
+
+.space-weather-app .enlil-anim-scrub::-moz-range-track{
+    background: #e0e0e0;
+    border-radius: 3px;
+    height: 6px;
+}
+
+/* Controls bar — flexbox with space-between */
+.space-weather-app .enlil-anim-controls{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc(var(--spacing-unit) * 1.5);
     padding: calc(var(--spacing-unit) * 1.5);
     background: rgba(0,0,0,0.05);
     border-top: 1px solid var(--color-border, #eee);
+    flex-wrap: wrap;
 }
 
+/* Button group: prev, play, next */
+.space-weather-app .enlil-anim-btn-group{
+    display: flex;
+    align-items: center;
+    gap: calc(var(--spacing-unit) * 0.75);
+    flex-shrink: 0;
+}
+
+/* Circular transport buttons */
 .space-weather-app .enlil-anim-btn{
     background: var(--primary-gradient);
     color: white;
@@ -421,12 +495,13 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    font-size: 14px;
+    font-size: 13px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    flex-shrink: 0;
 }
 
 .space-weather-app .enlil-anim-btn:hover{
@@ -434,10 +509,43 @@
     box-shadow: var(--shadow-sm);
 }
 
+/* Play/pause button — slightly larger */
+.space-weather-app .enlil-anim-play-btn{
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+}
+
+/* Frame counter text */
 .space-weather-app .enlil-anim-info{
     font-size: 13px;
     color: var(--color-text-secondary, #666);
     font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+    white-space: nowrap;
+    flex: 1;
+    text-align: center;
+}
+
+/* Speed toggle button */
+.space-weather-app .enlil-anim-speed-btn{
+    background: transparent;
+    color: #667eea;
+    border: 1px solid #667eea;
+    padding: 4px 14px;
+    border-radius: calc(var(--border-radius) / 2);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+    transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.space-weather-app .enlil-anim-speed-btn:hover{
+    background: var(--primary-gradient);
+    color: white;
+    border-color: transparent;
 }
 
 .space-weather-app .enlil-static-container{
