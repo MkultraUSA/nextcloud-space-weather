@@ -184,6 +184,22 @@ document.addEventListener('DOMContentLoaded', function () {
 			playerEl.insertBefore(loadingOverlay, animImg.nextSibling);
 		}
 
+		// Create a second (hidden) img for double-buffered animation.
+		// This prevents white flashes during frame transitions.
+		var animImgB = document.createElement('img');
+		animImgB.className = 'enlil-anim-image';
+		animImgB.alt = '';
+		animImgB.style.display = 'none';
+		animImgB.style.position = 'absolute';
+		animImgB.style.top = '0';
+		animImgB.style.left = '0';
+		animImgB.style.width = '100%';
+		if (animImg.parentNode) {
+			animImg.parentNode.style.position = 'relative';
+			animImg.parentNode.insertBefore(animImgB, animImg);
+		}
+		var activeImg = animImg;  // currently visible (A or B)
+
 		// Hide loading overlay when frame image finishes loading
 		animImg.addEventListener('load', function () {
 			if (loadingOverlay) {
@@ -262,19 +278,98 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		// --- Core animation functions ---
 
+		// --- Double-buffered frame loading ---
+		// Two stacked <img> elements: one visible (activeImg), one hidden.
+		// Load next frame into the hidden one, then swap visibility — zero flash.
+		var frameCache = {};       // idx -> Image (fully loaded)
+		var MAX_CACHE = 50;
+		var PRELOAD_AHEAD = 10;    // preload this many frames ahead
+
+		function clearOldCache() {
+			var keys = Object.keys(frameCache);
+			if (keys.length > MAX_CACHE) {
+				keys.sort(function(a, b) {
+					return Math.abs(b - currentFrame) - Math.abs(a - currentFrame);
+				});
+				for (var i = MAX_CACHE; i < keys.length; i++) {
+					delete frameCache[keys[i]];
+				}
+			}
+		}
+
+		function preloadFrame(idx) {
+			if (idx < 0 || idx >= frameCount) return;
+			if (frameCache[idx]) return;
+			var img = new Image();
+			img.onload = function() {
+				frameCache[idx] = img;
+				clearOldCache();
+			};
+			img.src = frameBase + idx;
+		}
+
+		function preloadAhead(startIdx) {
+			for (var i = 1; i <= PRELOAD_AHEAD; i++) {
+				preloadFrame(startIdx + i);
+			}
+		}
+
+		function getHiddenImg() {
+			// Return the currently hidden image element (A or B)
+			return (activeImg === animImg) ? animImgB : animImg;
+		}
+
 		function showFrame(idx) {
 			if (idx >= frameCount) idx = 0;
 			if (idx < 0) idx = frameCount - 1;
 			currentFrame = idx;
-			if (loadingOverlay) {
-				loadingOverlay.style.display = 'flex';
-			}
-			animImg.src = frameBase + idx;
+
 			if (infoEl) {
 				infoEl.textContent = 'Frame ' + (idx + 1) + ' / ' + frameCount;
 			}
 			if (scrubBar) {
 				scrubBar.value = String(idx);
+			}
+
+			var src = frameBase + idx;
+			var hidden = getHiddenImg();
+
+			// If already showing this frame, skip
+			if (activeImg.src && activeImg.src.indexOf(src) >= 0) {
+				if (loadingOverlay) loadingOverlay.style.display = 'none';
+				preloadAhead(idx);
+				return;
+			}
+
+			// Check cache for instant load
+			var cached = frameCache[idx];
+			if (cached && cached.complete && cached.naturalWidth > 0) {
+				// Swap: show hidden with cached frame, hide old active
+				hidden.src = cached.src;
+				hidden.style.display = 'block';
+				activeImg.style.display = 'none';
+				activeImg = hidden;
+				if (loadingOverlay) loadingOverlay.style.display = 'none';
+				preloadAhead(idx);
+			} else {
+				// Not cached — load into hidden img, then swap when ready
+				if (loadingOverlay) loadingOverlay.style.display = 'flex';
+				hidden.onload = function() {
+					hidden.style.display = 'block';
+					activeImg.style.display = 'none';
+					activeImg = hidden;
+					frameCache[idx] = hidden;  // cache the element itself
+					if (loadingOverlay) loadingOverlay.style.display = 'none';
+					clearOldCache();
+					preloadAhead(idx);
+					// Clear onload so it doesn't fire again
+					hidden.onload = null;
+				};
+				hidden.onerror = function() {
+					if (loadingOverlay) loadingOverlay.style.display = 'none';
+					hidden.onerror = null;
+				};
+				hidden.src = src;
 			}
 		}
 
