@@ -174,11 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		loadingOverlay.className = 'enlil-anim-loading-overlay';
 		loadingOverlay.style.display = 'none';
 		var loadingSpinner = document.createElement('div');
-		loadingSpinner.className = 'loading-spinner';
-		var spinnerIcon = document.createElement('span');
-		spinnerIcon.className = 'spinner';
-		spinnerIcon.textContent = '\u21BB';
-		loadingSpinner.appendChild(spinnerIcon);
+		loadingSpinner.className = 'enlil-anim-spinner';
 		loadingOverlay.appendChild(loadingSpinner);
 		if (playerEl) {
 			playerEl.insertBefore(loadingOverlay, animImg.nextSibling);
@@ -239,19 +235,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
 			prevBtn = document.createElement('button');
 			prevBtn.className = 'enlil-anim-btn';
-			prevBtn.textContent = '\u23EE';
+			prevBtn.innerHTML = '<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z"/></svg>';
 			prevBtn.title = 'Previous Frame';
 			prevBtn.setAttribute('aria-label', 'Previous Frame');
 
 			playBtn = document.createElement('button');
 			playBtn.className = 'enlil-anim-btn enlil-anim-play-btn';
-			playBtn.textContent = '\u25B6';
+			playBtn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
 			playBtn.title = 'Play';
 			playBtn.setAttribute('aria-label', 'Play/Pause');
 
 			nextBtn = document.createElement('button');
 			nextBtn.className = 'enlil-anim-btn';
-			nextBtn.textContent = '\u23ED';
+			nextBtn.innerHTML = '<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M4 18l8.5-6L4 6v12zm9.5-12v12l8.5-6-8.5-6z"/></svg>';
 			nextBtn.title = 'Next Frame';
 			nextBtn.setAttribute('aria-label', 'Next Frame');
 
@@ -377,7 +373,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			if (playing) return;
 			playing = true;
 			if (playBtn) {
-				playBtn.textContent = '\u23F8';
+				playBtn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
 				playBtn.title = 'Pause';
 			}
 			timer = setInterval(function () {
@@ -392,7 +388,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				timer = null;
 			}
 			if (playBtn) {
-				playBtn.textContent = '\u25B6';
+				playBtn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
 				playBtn.title = 'Play';
 			}
 		}
