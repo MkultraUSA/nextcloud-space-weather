@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Community Discussions
+    url: https://github.com/MkultraUSA/nextcloud-space-weather/discussions
+    about: Please ask and answer questions here. If Discussions are not enabled, use the issue tracker instead.
